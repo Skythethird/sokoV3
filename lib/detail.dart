@@ -166,6 +166,7 @@ class _DetailpageState extends State<Detailpage> {
           ),
         ),
       ),
+<<<<<<< HEAD
       floatingActionButton: FloatingActionButton(
         onPressed:(){ Navigator.push(
           context, 
@@ -173,6 +174,28 @@ class _DetailpageState extends State<Detailpage> {
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
+=======
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: 300,
+              child: Column(
+                children: <Widget>[
+                  TextField(
+              onChanged: (text){
+              },
+              decoration: InputDecoration(
+                labelText: "เพิ่มจำนวน",
+                border: OutlineInputBorder(),
+              ),
+            )
+                ],),
+            ),
+          ],
+        ), 
+>>>>>>> f3f815fbc6ee61d214f04b2331fe601c3924c888
       ),
     );
   }
