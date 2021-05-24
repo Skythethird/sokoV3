@@ -24,10 +24,20 @@ class _DetailpageState extends State<Detailpage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
+            Container(
+              width: 300,
+              child: Column(
+                children: <Widget>[
+                  TextField(
               onChanged: (text){
-              }
+              },
+              decoration: InputDecoration(
+                labelText: "เพิ่มจำนวน",
+                border: OutlineInputBorder(),
+              ),
             )
+                ],),
+            ),
           ],
         ), 
       ),
