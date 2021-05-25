@@ -23,6 +23,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Product'),
+        backgroundColor: Color(0xff3D3D3D),
       ),
       body: Container(
         child: Column(
