@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'detail.dart';
-
+import 'database_helper.dart';
 
 void main() {
   runApp(MyApp());
