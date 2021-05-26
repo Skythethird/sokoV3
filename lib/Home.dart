@@ -3,6 +3,7 @@ import 'detail.dart';
 import 'AnimatedSearchBar.dart';
 import 'Widget/list_item_widget.dart';
 import 'data/list_items.dart';
+import 'package:sokoV3/model/list_item.dart';
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final List<ListItem> items = List.from(listItems);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +19,19 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
               child: Column(
           children: [
-            Column(children: [AnimatedSearchBar()]),
-            ListItemWidget(item:listItems[0]),
+            AnimatedSearchBar(),
+            // ListItemWidget(item:listItems[0]),
+            SizedBox(
+              height: 400,
+              child: AnimatedList(
+                initialItemCount: items.length,
+                itemBuilder: (context, index, animation) => ListItemWidget(
+                  item: items[index],
+                  animation:  animation,
+                  onClicked: () {},
+                )),
+            )
+            
           ],
         ),
       ),
