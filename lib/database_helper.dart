@@ -12,6 +12,9 @@ class DatabaseHelper{
   static final columnProductname = 'productname';
   static final columnDetail = 'detail';
   static final columnAmount = 'amount';
+  static final columnRetail = 'retail';
+  static final columnWholesale = 'wholesale';
+  static final columnCategory = 'category';
   
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance =  DatabaseHelper._privateConstructor();
@@ -40,12 +43,15 @@ class DatabaseHelper{
         $columnID INTEGER PRIMARY KEY AUTOINCREMENT,
         $columnProductname TEXT NOT NULL,
         $columnDetail TEXT,
-        $columnAmount INTEGER,
+        $columnAmount INTEGER NOT NULL,
+        $columnRetail INTEGER NOT NULL,
+        $columnWholesale INTEGER NOT NULL,
+        $columnCategory TEXT NOT NULL
       )
     ''');
   }
 
-  Future<int> insert(Map < String, dynamic> row) async{
+  Future<int> insert(Map<String, dynamic> row) async{
     Database db = await instance.database;
     return await db.insert(table, row);
   }

@@ -179,7 +179,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-<<<<<<< HEAD
   path_provider:
     dependency: "direct main"
     description:
@@ -215,7 +214,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-=======
   pattern_formatter:
     dependency: "direct main"
     description:
@@ -223,7 +221,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
->>>>>>> 089659445fc5179525eea6c41ef626800854ac65
   pedantic:
     dependency: transitive
     description:
@@ -231,15 +228,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
-<<<<<<< HEAD
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
-=======
   petitparser:
     dependency: transitive
     description:
@@ -247,7 +235,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
->>>>>>> 089659445fc5179525eea6c41ef626800854ac65
+  platform:
+    dependency: transitive
+    description:
+      name: platform
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -274,7 +268,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
-<<<<<<< HEAD
   sqflite:
     dependency: "direct main"
     description:
@@ -289,8 +282,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0+2"
-=======
->>>>>>> 089659445fc5179525eea6c41ef626800854ac65
   stack_trace:
     dependency: transitive
     description:
@@ -347,7 +338,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-<<<<<<< HEAD
   win32:
     dependency: transitive
     description:
@@ -362,10 +352,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-sdks:
-  dart: ">=2.13.0 <3.0.0"
-  flutter: ">=1.24.0-10"
-=======
   xml:
     dependency: transitive
     description:
@@ -381,6 +367,5 @@ sdks:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.12.13"
->>>>>>> 089659445fc5179525eea6c41ef626800854ac65
+  dart: ">=2.13.0 <3.0.0"
+  flutter: ">=1.24.0-10"
