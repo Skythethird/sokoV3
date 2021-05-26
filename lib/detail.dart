@@ -1,9 +1,9 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sokoV3/test.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Detailpage extends StatefulWidget {
   @override
@@ -11,78 +11,76 @@ class Detailpage extends StatefulWidget {
 }
 
 class _DetailpageState extends State<Detailpage> {
- TextEditingController _controller = TextEditingController();
+  TextEditingController _controller = TextEditingController();
   File _image;
 
-  var ImagePicker;
-  var ImageSource;
-  @override
-  _imgFromCamera() async {
-  File image = await ImagePicker.pickImage(
-    source: ImageSource.camera, imageQuality: 50
-  );
 
-  setState(() {
-    _image = image;
-  });
+  _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
   }
 
   _imgFromGallery() async {
-  File image = await  ImagePicker.pickImage(
-      source: ImageSource.gallery, imageQuality: 50
-  );
-
-  setState(() {
-    _image = image;
-  });
-  }
-  void _showPicker(context) {
-  showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return SafeArea(
-          child: Container(
-            child: new Wrap(
-              children: <Widget>[
-                new ListTile(
-                    leading: new Icon(Icons.photo_library),
-                    title: new Text('Photo Library'),
-                    onTap: () {
-                      _imgFromGallery();
-                      Navigator.of(context).pop();
-                    }),
-                new ListTile(
-                  leading: new Icon(Icons.photo_camera),
-                  title: new Text('Camera'),
-                  onTap: () {
-                    _imgFromCamera();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      }
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50
     );
-}
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
-  void initState(){
-        _controller.text = "0"; 
+  void initState() {
+    _controller.text = "0";
     super.initState();
   }
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Number Field increment decrement'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Container(
+        child: Column(children: <Widget>[
+          Container(
             width: 60.0,
             foregroundDecoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
@@ -164,12 +162,47 @@ class _DetailpageState extends State<Detailpage> {
               ],
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  _showPicker(context);
+                },
+                child: CircleAvatar(
+                  radius: 55,
+                  backgroundColor: Color(0xffFDCF09),
+                  child: _image != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.file(
+                            _image,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(50)),
+                          width: 100,
+                          height: 100,
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                ),
+              ),
+            ),
+          ),
+        ]),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){ Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context)=> Pic()));
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Pic()));
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
