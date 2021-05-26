@@ -4,6 +4,7 @@ import 'AnimatedSearchBar.dart';
 import 'Widget/list_item_widget.dart';
 import 'data/list_items.dart';
 import 'package:sokoV3/model/list_item.dart';
+import 'add_new_product.dart';
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
   @override
@@ -58,11 +59,19 @@ class _HomeState extends State<Home> {
 
 Widget getAppBar() {
   return AppBar(
-    title: Text('รายการสินค้าในคลัง'),
+    title: Text('List product'),
     actions: [
       Padding(
         padding: const EdgeInsets.only(right: 10),
-        child: Icon(Icons.add),
+        child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddNewProductPage()));
+        },
+        child: Icon(
+            Icons.add
+        ),
+      )
       )
     ],
     backgroundColor: Color(0xff3D3D3D),
