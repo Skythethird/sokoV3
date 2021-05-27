@@ -10,26 +10,27 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
   bool _folded = true;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: AnimatedContainer(
-        duration:  Duration(milliseconds: 400),
-        width: _folded ? 56 : 200,
-        height: 56,
-        decoration:
-         BoxDecoration(
-           borderRadius: BorderRadius.circular(32),
-          color: Colors.white,
-          boxShadow:  kElevationToShadow[6],
-        ),
-        child: Row(
-          children: [
-            Expanded(child: Container(
-              padding: EdgeInsets.only(left: 16),
-              child: !_folded 
-              ? TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
+    String value = 'value';
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: AnimatedContainer(
+            duration:  Duration(milliseconds: 400),
+            width: _folded ? 56 : 200,
+            height: 56,
+            decoration:
+             BoxDecoration(
+               borderRadius: BorderRadius.circular(32),
+              color: Colors.white,
+              boxShadow:  kElevationToShadow[6],
+            ),
+            child: Row(
+              children: [
+                Expanded(child: Container(
+                  padding: EdgeInsets.only(left: 16),
+                  child: !_folded 
+                  ? TextField(
+                    decoration: InputDecoration(
+                      hintText: '$value',
                   hintStyle: TextStyle(color:  Colors.blue[300]),
                   border: InputBorder.none),
                   ) 

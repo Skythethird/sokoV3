@@ -5,6 +5,7 @@ import 'Widget/list_item_widget.dart';
 import 'data/list_items.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'add_new_product.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
   @override
@@ -13,7 +14,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<ListItem> items = List.from(listItems);
-  
+  String _counter,_value = "";
+  Future _barcode() async{
+
+    _counter = await FlutterBarcodeScanner.scanBarcode("#004397", "Cancel", true, ScanMode.DEFAULT);
+
+    setState(() {
+      _value= _counter;
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,12 +48,9 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){ Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context)=> Detailpage()));
-        },
+        onPressed: _barcode,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.qr_code_2),
       ),
       // body: SingleChildScrollView(
       //         child: Column(
