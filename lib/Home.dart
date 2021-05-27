@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
         onPressed: _barcode,
         tooltip: 'Increment',
         child: Icon(Icons.qr_code_2),
-      ),
+        ),
       // body: SingleChildScrollView(
       //         child: Column(
       //     children: [
