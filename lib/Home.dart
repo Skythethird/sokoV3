@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(),
+
       body: SingleChildScrollView(
               child: Column(
           children: [

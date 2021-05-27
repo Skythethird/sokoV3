@@ -104,6 +104,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "focused_menu",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/focused_menu-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "http",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.2",
       "packageUri": "lib/",
@@ -328,5 +334,5 @@
   ],
   "generated": "2021-05-27T16:08:12.382056Z",
   "generator": "pub",
-  "generatorVersion": "2.13.0"
+  "generatorVersion": "2.12.3"
 }
