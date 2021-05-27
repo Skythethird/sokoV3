@@ -15,7 +15,7 @@
     },
     {
       "name": "async",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.6.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.5.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -88,6 +88,12 @@
     {
       "name": "flutter_test",
       "rootUri": "file:///C:/src/flutter/packages/flutter_test",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "focused_menu",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/focused_menu-1.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -177,7 +183,7 @@
     },
     {
       "name": "source_span",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -207,7 +213,7 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.3.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.19",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -242,7 +248,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-25T21:38:33.416333Z",
+  "generated": "2021-05-26T13:58:24.542318Z",
   "generator": "pub",
-  "generatorVersion": "2.13.0"
+  "generatorVersion": "2.12.3"
 }
