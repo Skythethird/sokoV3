@@ -35,10 +35,10 @@ dependencies:
   pattern_formatter: ^2.0.0
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
-  flutter_barcode_scanner: ^1.0.0
+  flutter_barcode_scanner: ^1.0.2
   image_picker: ^0.6.7+14
   focused_menu: ^1.0.2
-  
+
 flutter_icons:
   android: true
   image_path: "assets/icon.png"

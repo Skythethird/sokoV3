@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DetailItem extends StatefulWidget {
+  DetailItem(String items);
+
   @override
   _DetailItemState createState() => _DetailItemState();
 }
 
 class _DetailItemState extends State<DetailItem> {
+  String items;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +31,7 @@ class _DetailItemState extends State<DetailItem> {
                 ),
                 Container(
                 margin: EdgeInsets.all(8),
-                child: Text("item name",style: TextStyle(fontSize: 28),),
+                child: Text('name',style: TextStyle(fontSize: 28),),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 15),

@@ -6,6 +6,8 @@ import 'data/list_items.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'add_new_product.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'filter_test.dart';
+import 'list_test.dart';
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final List<ListItem> items = List.from(listItems);
   String _counter,_value = "";
+  String query = '';
   Future _barcode() async{
 
     _counter = await FlutterBarcodeScanner.scanBarcode("#004397", "Cancel", true, ScanMode.DEFAULT);
@@ -143,4 +146,25 @@ Widget getAppBar() {
 //         ],
 //       ));
 // }
+
+// Widget buildSearch() => SearchWidget(
+//         text: query,
+//         hintText: 'Title or Author Name',
+//         onChanged: searchBook,
+//       );
+// void searchBook(String query) {
+//     final books = allBooks.where((book) {
+//       final titleLower = book.title.toLowerCase();
+//       final authorLower = book.author.toLowerCase();
+//       final searchLower = query.toLowerCase();
+
+//       return titleLower.contains(searchLower) ||
+//           authorLower.contains(searchLower);
+//     }).toList();
+
+//     setState(() {
+//       this.query = query;
+//       // this.books = books;
+//     });
+//   }
 }
