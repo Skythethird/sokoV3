@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sokoV3/database_helper.dart';
 import 'detail.dart';
 import 'AnimatedSearchBar.dart';
 import 'Widget/list_item_widget.dart';
@@ -15,6 +16,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  final dbHelper = DatabaseHelper.instance;
+
+  List<Map<String, dynamic>> allProduct;
+
+  Future<bool> readProduct() async {
+    allProduct = await dbHelper.queryAllRows();
+    print(allProduct);
+    return true;
+  }
+
   final List<ListItem> items = List.from(listItems);
   String _counter,_value = "";
   String query = '';
@@ -27,6 +39,7 @@ class _HomeState extends State<Home> {
     });
 
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

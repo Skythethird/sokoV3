@@ -205,15 +205,15 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   },
                 ),
               ),
-              // ElevatedButton(
-              //     onPressed: () {
-              //       insertProduct();
-              //       // _detail = "4512";
-              //     },
-              //     child: Text("Submit"))
-              // new SizedBox(
-              //   height: 10.0,
-              // ),
+              ElevatedButton(
+                  onPressed: () {
+                    insertProduct();
+                    // _detail = "4512";
+                  },
+                  child: Text("Submit")),
+              new SizedBox(
+                height: 10.0,
+              ),
               // new RaisedButton(
               //   onPressed: _validateInputs,
               //   child: new Text('Validate'),
