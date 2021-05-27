@@ -31,6 +31,8 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: ^0.9.0
   pattern_formatter: ^2.0.0
+  sqflite: ^2.0.0+3
+  path_provider: ^2.0.2
   
 flutter_icons:
   android: true

@@ -2,6 +2,7 @@ import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sokoV3/add_image.dart';
+import 'database_helper.dart';
 
 class AddNewProductPage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   bool _autoValidate = false;
   String _nameProduct;
   String _detail;
-  int _numberProduct;
+  int _amount;
   double _retailPrice;
   double _wholesalePrice;
   String _category;
@@ -21,11 +22,27 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   void initState() {
     _nameProduct = null;
     _detail = null;
-    _numberProduct = 0;
+    _amount = 0;
     _retailPrice = 0;
     _wholesalePrice = 0;
     _category = null;
     super.initState();
+  }
+
+  final dbHelper = DatabaseHelper.instance;
+
+  void insertProduct() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnProductname: _nameProduct,
+      DatabaseHelper.columnDetail: _detail,
+      DatabaseHelper.columnAmount: _amount,
+      DatabaseHelper.columnRetail: _retailPrice,
+      DatabaseHelper.columnWholesale:_wholesalePrice,
+      DatabaseHelper.columnCategory: _category
+    };
+    final id = await dbHelper.insert(row);
+    print('Insert Produc ID: $id $row');
+
   }
 
   @override
@@ -90,7 +107,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   var val = int.tryParse(text);
                   if (val != null) {
                     setState(() {
-                      _numberProduct = val;
+                      _amount = val;
                     });
                   }
                 },
@@ -164,7 +181,8 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  _detail = "4512";
+                  insertProduct();
+                  // _detail = "4512";
                 },
                 child: Text("Submit"))
             // new SizedBox(
