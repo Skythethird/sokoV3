@@ -64,38 +64,38 @@ class _PicState extends State<Pic> {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 5,
+          height: 12,
         ),
         Center(
           child: GestureDetector(
             onTap: () {
               _showPicker(context);
             },
-            child: CircleAvatar(
-              radius: 55,
-              backgroundColor: Color(0xffFDCF09),
+            child: Container(
               child: _image != null
                   ? ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
+                      
                       child: Image.file(
                         _image,
-                        width: 100,
-                        height: 100,
+                        width: 200,
+                        height: 200,
                         fit: BoxFit.fitHeight,
                       ),
                     )
                   : Container(
                       decoration: BoxDecoration(
                           color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(50)),
-                      width: 100,
-                      height: 100,
+                          borderRadius: BorderRadius.circular(25)
+                          ),
+                      width: 200,
+                      height: 200,
                       child: Icon(
-                        Icons.camera_alt,
+                        Icons.add_photo_alternate,
                         color: Colors.grey[800],
+                        size: 200,
                       ),
                     ),
-            ),
+              ),
           ),
         )
       ],

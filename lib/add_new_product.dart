@@ -37,12 +37,11 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       DatabaseHelper.columnDetail: _detail,
       DatabaseHelper.columnAmount: _amount,
       DatabaseHelper.columnRetail: _retailPrice,
-      DatabaseHelper.columnWholesale:_wholesalePrice,
+      DatabaseHelper.columnWholesale: _wholesalePrice,
       DatabaseHelper.columnCategory: _category
     };
     final id = await dbHelper.insert(row);
     print('Insert Produc ID: $id $row');
-
   }
 
   @override
@@ -54,145 +53,173 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       ),
       body: Container(
         padding: EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            Column(
-              children: [Pic()],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Name of product',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.text,
-                onChanged: (text) {
-                  var val = text;
-                  if (val != null) {
-                    setState(() {
-                      _nameProduct = val;
-                    });
-                  }
-                },
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
+                child: Pic(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Detail',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.text,
-                onChanged: (text) {
-                  var val = text;
-                  if (val != null) {
-                    setState(() {
-                      _detail = val;
-                    });
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Number of product',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  var val = int.tryParse(text);
-                  if (val != null) {
-                    setState(() {
-                      _amount = val;
-                    });
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Retail Price',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  var val = double.tryParse(text);
-                  if (val != null) {
-                    setState(() {
-                      _retailPrice = val;
-                    });
-                  }
-                },
-                inputFormatters: [ThousandsFormatter(allowFraction: true)],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Wholesale Price',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  var val = double.tryParse(text);
-                  if (val != null) {
-                    setState(() {
-                      _wholesalePrice = val;
-                    });
-                  }
-                },
-                inputFormatters: [ThousandsFormatter(allowFraction: true)],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all()),
-                child: DropdownButton<String>(
-                  value: _category,
-                  icon: const Icon(Icons.arrow_drop_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      _category = newValue;
-                    });
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: new TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Name of product',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.text,
+                  onChanged: (text) {
+                    var val = text;
+                    if (val != null) {
+                      setState(() {
+                        _nameProduct = val;
+                      });
+                    }
                   },
-                  items: <String>['Product', 'Box']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
               ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  insertProduct();
-                  // _detail = "4512";
-                },
-                child: Text("Submit"))
-            // new SizedBox(
-            //   height: 10.0,
-            // ),
-            // new RaisedButton(
-            //   onPressed: _validateInputs,
-            //   child: new Text('Validate'),
-            // )
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: new TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'Number of product',
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.number,
+                          onChanged: (text) {
+                            var val = int.tryParse(text);
+                            if (val != null) {
+                              setState(() {
+                                _amount = val;
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                            labelText: "Select Category",
+                            border: OutlineInputBorder(),
+                          ),
+                          value: _category,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _category = newValue;
+                            });
+                          },
+                          items: <String>['Product', 'Box']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: new TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'Retail Price(Baht)',
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.number,
+                          onChanged: (text) {
+                            var val = double.tryParse(text);
+                            if (val != null) {
+                              setState(() {
+                                _retailPrice = val;
+                              });
+                            }
+                          },
+                          inputFormatters: [
+                            ThousandsFormatter(allowFraction: true)
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: new TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'Wholesale Price(Baht)',
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.number,
+                          onChanged: (text) {
+                            var val = double.tryParse(text);
+                            if (val != null) {
+                              setState(() {
+                                _wholesalePrice = val;
+                              });
+                            }
+                          },
+                          inputFormatters: [
+                            ThousandsFormatter(allowFraction: true)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: new TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Detail',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  onChanged: (text) {
+                    var val = text;
+                    if (val != null) {
+                      setState(() {
+                        _detail = val;
+                      });
+                    }
+                  },
+                ),
+              ),
+              // ElevatedButton(
+              //     onPressed: () {
+              //       insertProduct();
+              //       // _detail = "4512";
+              //     },
+              //     child: Text("Submit"))
+              // new SizedBox(
+              //   height: 10.0,
+              // ),
+              // new RaisedButton(
+              //   onPressed: _validateInputs,
+              //   child: new Text('Validate'),
+              // )
+            ],
+          ),
         ),
       ),
     );
