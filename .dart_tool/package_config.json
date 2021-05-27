@@ -110,6 +110,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "focused_menu",
+      "rootUri": "file:///Users/skythethird/desktop/src/flutter/.pub-cache/hosted/pub.dartlang.org/focused_menu-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "http",
       "rootUri": "file:///Users/skythethird/desktop/src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.2",
       "packageUri": "lib/",
@@ -332,7 +338,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-27T14:44:11.974503Z",
+  "generated": "2021-05-27T17:38:00.093755Z",
   "generator": "pub",
   "generatorVersion": "2.13.0"
 }

@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   
+  
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -35,6 +37,7 @@ dependencies:
   path_provider: ^2.0.2
   flutter_barcode_scanner: ^1.0.0
   image_picker: ^0.6.7+14
+  focused_menu: ^1.0.2
   
 flutter_icons:
   android: true
@@ -45,7 +48,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
     
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -61,6 +63,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - landing.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

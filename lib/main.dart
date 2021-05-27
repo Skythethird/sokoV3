@@ -68,12 +68,27 @@ import 'detail.dart';
 
 // ของกุหน้าโฮม
 import 'package:flutter/material.dart';
-
+// import 'package:flutter/services.dart';
+import 'init.dart';
+import 'splash_screen.dart';
 import 'Home.dart';
+
+final Future _initFuture = Init.initialize();
 void main() {
+  // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Home(),
+      home: FutureBuilder(
+        future: _initFuture,
+        builder: (context, snapshot){
+          if (snapshot.connectionState == ConnectionState.done){
+            return Home();
+          } else {
+            return SplashScreen();
+          }
+        },
+      ),
+    // debugShowCheckedModeBanner: false,
+    // home: Home(),
   ));
 }
 
