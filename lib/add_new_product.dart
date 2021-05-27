@@ -17,6 +17,16 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   double _retailPrice;
   double _wholesalePrice;
   String _category;
+  @override
+  void initState() {
+    _nameProduct = null;
+    _detail = null;
+    _numberProduct = 0;
+    _retailPrice = 0;
+    _wholesalePrice = 0;
+    _category = null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,70 +36,131 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
         backgroundColor: Color(0xff3D3D3D),
       ),
       body: Container(
+        padding: EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
             Column(
               children: [Pic()],
             ),
-            new TextFormField(
-              decoration: const InputDecoration(labelText: 'Name of product'),
-              keyboardType: TextInputType.text,
-              onSaved: (String val) {
-                _nameProduct = val;
-              },
-            ),
-            new TextFormField(
-              decoration: const InputDecoration(labelText: 'Detail'),
-              keyboardType: TextInputType.text,
-              onSaved: (String val) {
-                _detail = val;
-              },
-            ),
-            new TextFormField(
-              decoration: const InputDecoration(labelText: 'Number of product'),
-              keyboardType: TextInputType.number,
-              onSaved: (String val) {
-                _numberProduct = int.parse(val);
-              },
-            ),
-            new TextFormField(
-              decoration: const InputDecoration(labelText: 'Retail Price'),
-              keyboardType: TextInputType.number,
-              onSaved: (String val) {
-                _retailPrice = double.parse(val);
-              },
-              inputFormatters: [ThousandsFormatter(allowFraction: true)],
-            ),
-            new TextFormField(
-              decoration: const InputDecoration(labelText: 'Wholesale Price'),
-              keyboardType: TextInputType.number,
-              onSaved: (String val) {
-                _wholesalePrice = double.parse(val);
-              },
-              inputFormatters: [ThousandsFormatter(allowFraction: true)],
-            ),
-            DropdownButton<String>(
-              value: _category,
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Name of product',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.text,
+                onChanged: (text) {
+                  var val = text;
+                  if (val != null) {
+                    setState(() {
+                      _nameProduct = val;
+                    });
+                  }
+                },
               ),
-              onChanged: (String newValue) {
-                setState(() {
-                  _category = newValue;
-                });
-              },
-              items: <String>['Product', 'Box']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Detail',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.text,
+                onChanged: (text) {
+                  var val = text;
+                  if (val != null) {
+                    setState(() {
+                      _detail = val;
+                    });
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Number of product',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (text) {
+                  var val = int.tryParse(text);
+                  if (val != null) {
+                    setState(() {
+                      _numberProduct = val;
+                    });
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Retail Price',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (text) {
+                  var val = double.tryParse(text);
+                  if (val != null) {
+                    setState(() {
+                      _retailPrice = val;
+                    });
+                  }
+                },
+                inputFormatters: [ThousandsFormatter(allowFraction: true)],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Wholesale Price',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (text) {
+                  var val = double.tryParse(text);
+                  if (val != null) {
+                    setState(() {
+                      _wholesalePrice = val;
+                    });
+                  }
+                },
+                inputFormatters: [ThousandsFormatter(allowFraction: true)],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all()),
+                child: DropdownButton<String>(
+                  value: _category,
+                  icon: const Icon(Icons.arrow_drop_down),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      _category = newValue;
+                    });
+                  },
+                  items: <String>['Product', 'Box']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
             ),
             ElevatedButton(
                 onPressed: () {

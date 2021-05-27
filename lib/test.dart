@@ -71,38 +71,63 @@ Widget build(BuildContext context) {
     body: Column(
       children: <Widget>[
         SizedBox(
-          height: 32,
+          height: 12,
         ),
         Center(
           child: GestureDetector(
             onTap: () {
               _showPicker(context);
             },
-            child: CircleAvatar(
-              radius: 55,
-              backgroundColor: Color(0xffFDCF09),
+            child: Container(
               child: _image != null
                   ? ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
+                      
                       child: Image.file(
                         _image,
-                        width: 100,
-                        height: 100,
+                        width: 200,
+                        height: 200,
                         fit: BoxFit.fitHeight,
                       ),
                     )
                   : Container(
                       decoration: BoxDecoration(
                           color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(50)),
-                      width: 100,
-                      height: 100,
+                          borderRadius: BorderRadius.circular(50)
+                          ),
+                      width: 200,
+                      height: 200,
                       child: Icon(
-                        Icons.camera_alt,
+                        Icons.add_photo_alternate_outlined,
                         color: Colors.grey[800],
+                        size: 200,
                       ),
                     ),
-            ),
+              ),
+            // child: CircleAvatar(
+            //   radius: 55,
+            //   backgroundColor: Color(0xffFDCF09),
+            //   child: _image != null
+            //       ? ClipRRect(
+            //           borderRadius: BorderRadius.circular(50),
+            //           child: Image.file(
+            //             _image,
+            //             width: 100,
+            //             height: 100,
+            //             fit: BoxFit.fitHeight,
+            //           ),
+            //         )
+            //       : Container(
+            //           decoration: BoxDecoration(
+            //               color: Colors.grey[200],
+            //               borderRadius: BorderRadius.circular(50)),
+            //           width: 100,
+            //           height: 100,
+            //           child: Icon(
+            //             Icons.add_photo_alternate_outlined,
+            //             color: Colors.grey[800],
+            //           ),
+            //         ),
+            // ),
           ),
         )
       ],

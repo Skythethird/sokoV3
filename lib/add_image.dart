@@ -64,7 +64,7 @@ class _PicState extends State<Pic> {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 32,
+          height: 5,
         ),
         Center(
           child: GestureDetector(
