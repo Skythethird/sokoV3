@@ -399,7 +399,11 @@
     },
     {
       "name": "win32",
+<<<<<<< HEAD
       "rootUri": "file:///Users/skythethird/desktop/src/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.0.5",
+=======
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.0.5",
+>>>>>>> f37795d619d23dd1e968a683786ad23dcaac857f
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -428,7 +432,13 @@
       "languageVersion": "2.7"
     }
   ],
+<<<<<<< HEAD
   "generated": "2021-05-28T16:01:12.478854Z",
   "generator": "pub",
   "generatorVersion": "2.13.0"
+=======
+  "generated": "2021-05-28T08:11:43.053414Z",
+  "generator": "pub",
+  "generatorVersion": "2.13.1"
+>>>>>>> f37795d619d23dd1e968a683786ad23dcaac857f
 }

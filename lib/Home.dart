@@ -51,82 +51,63 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(),
-      backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
-      // body: SingleChildScrollView(
-      //         child: Column(
-      //     children: [
-      //       AnimatedSearchBar(),
-      //       // ListItemWidget(item:listItems[0]),
-      //       SizedBox(
-      //         height: 400,
-      //         child: AnimatedList(
-      //           initialItemCount: items.length,
-      //           itemBuilder: (context, index, animation) => ListItemWidget(
-      //             item: items[index],
-      //             animation:  animation,
-      //             onClicked: () {},
-      //           )),
-      //       )
-            
-      //     ],
-      //   ),
 
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       AnimatedSearchBar(),
-      //       // ListItemWidget(item:listItems[0]),
-      //       // SizedBox(
-      //       //         height: 400,
-      //       //         child: AnimatedList(
-      //       //             initialItemCount: items.length,
-      //       //             itemBuilder: (context, index, animation) =>
-      //       //                 ListItemWidget(
-      //       //                   item: items[index],
-      //       //                   animation: animation,
-      //       //                   onClicked: () {},
-      //       //                 )),
-      //       //       );
-      //     ],
-      //   ),
-      // ),
-      body: FutureBuilder(
-        future: getProduct(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: allProducts.length,
-              itemBuilder: (BuildContext context, int index) {
-                var myProduct = allProducts[index];
-                return Dismissible(
-                  key: UniqueKey(),
-                  onDismissed: (direction){
-                    setState(() {
-                      List.from(allProducts).removeAt(index);
-                      deleteProduct(myProduct['id']);
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Product Deleted'))
-                    );
-                  },
-                  background: Container(color: Colors.red),
-                  child: ListTile(
-                      leading: Icon(Icons.image),
-                      title: Text(myProduct['productname']),
-                      subtitle: Text(myProduct['amount'].toString()),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                      ),
-                );
-                    
-              },
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AnimatedSearchBar(),
+            ListItemWidget(item:listItems[0]),
+            SizedBox(
+                    height: 400,
+                    child: AnimatedList(
+                        initialItemCount: items.length,
+                        itemBuilder: (context, index, animation) =>
+                            ListItemWidget(
+                              item: items[index],
+                              animation: animation,
+                              onClicked: () {},
+                            )),
+                  )
+          ],
+        ),
       ),
+      // body: FutureBuilder(
+      //   future: getProduct(),
+      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //     if (snapshot.hasData) {
+      //       return ListView.builder(
+      //         itemCount: allProducts.length,
+      //         itemBuilder: (BuildContext context, int index) {
+      //           var myProduct = allProducts[index];
+      //           return Dismissible(
+      //             key: UniqueKey(),
+      //             onDismissed: (direction){
+      //               setState(() {
+      //                 List.from(allProducts).removeAt(index);
+      //                 deleteProduct(myProduct['id']);
+      //               });
+      //               ScaffoldMessenger.of(context).showSnackBar(
+      //                 SnackBar(content: Text('Product Deleted'))
+      //               );
+      //             },
+      //             background: Container(color: Colors.red),
+      //             child: ListTile(
+      //                 leading: Icon(Icons.image),
+      //                 title: Text(myProduct['productname']),
+      //                 subtitle: Text(myProduct['amount'].toString()),
+      //                 trailing: Icon(Icons.keyboard_arrow_right),
+      //                 ),
+      //           );
+                    
+      //         },
+      //       );
+      //     } else {
+      //       return Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     }
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
          _showPicker(context);
@@ -145,28 +126,25 @@ class _HomeState extends State<Home> {
     );
   }
 
-
-Widget getAppBar() {
-  return AppBar(
-    title: Text('List product'),
-    actions: [
-      Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddNewProductPage()));
-        },
-        child: Icon(
-            Icons.add
-        ),
-      )
-      )
-    ],
-    // backgroundColor: Color(0xff3D3D3D),
-    backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
-  );
-}
+  Widget getAppBar() {
+    return AppBar(
+      title: Text('List product'),
+      actions: [
+        Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddNewProductPage()));
+              },
+              child: Icon(Icons.add),
+            ))
+      ],
+      backgroundColor: Color(0xff3D3D3D),
+    );
+  }
 
 // Widget getBody() {
 //   bool _folded = true;
