@@ -28,6 +28,12 @@ class _HomeState extends State<Home> {
     return true;
   }
 
+  Future<int> deleteProduct(int id) async {
+    var numberOfDelete = await dbHelper.delete(id);
+    print('Delete Product ID: $id');
+    return numberOfDelete;
+  }
+
   final List<ListItem> items = List.from(listItems);
   String _counter, _value = "";
   String query = '';
@@ -72,9 +78,26 @@ class _HomeState extends State<Home> {
               itemCount: allProducts.length,
               itemBuilder: (BuildContext context, int index) {
                 var myProduct = allProducts[index];
-                return ListTile(
-                    title: Text(myProduct['productname']),
-                    subtitle: Text(myProduct['amount'].toString()));
+                return Dismissible(
+                  key: UniqueKey(),
+                  onDismissed: (direction){
+                    setState(() {
+                      List.from(allProducts).removeAt(index);
+                      deleteProduct(myProduct['id']);
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Product Deleted'))
+                    );
+                  },
+                  background: Container(color: Colors.red),
+                  child: ListTile(
+                      leading: Icon(Icons.image),
+                      title: Text(myProduct['productname']),
+                      subtitle: Text(myProduct['amount'].toString()),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      ),
+                );
+                    
               },
             );
           } else {
