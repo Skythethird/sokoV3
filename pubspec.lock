@@ -22,7 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.1"
-<<<<<<< HEAD
   barcode:
     dependency: transitive
     description:
@@ -44,8 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-=======
->>>>>>> f37795d619d23dd1e968a683786ad23dcaac857f
   boolean_selector:
     dependency: transitive
     description:
