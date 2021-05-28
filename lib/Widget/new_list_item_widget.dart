@@ -53,9 +53,17 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               radius: 32,
               backgroundImage: NetworkImage('https://home.maefahluang.org/images/editor/apple.jpg'),
             ),
-            title: Text(
-              widget.item['productname'],
-              style: TextStyle(fontSize: 20, color: Colors.black),
+            title: Column(
+              children: [
+                Text(
+                  widget.item['productname'],
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
+                Text(
+                  widget.item['amount'].toString(),
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
+              ],
             ),
             trailing: _simplePopup(context),
             // trailing: IconButton(
