@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(),
-
+      backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
       body: SingleChildScrollView(
               child: Column(
           children: [
@@ -83,7 +83,8 @@ Widget getAppBar() {
       )
       )
     ],
-    backgroundColor: Color(0xff3D3D3D),
+    // backgroundColor: Color(0xff3D3D3D),
+    backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
   );
 }
 

@@ -46,7 +46,7 @@ class ListItemWidget extends StatelessWidget {
                         FocusedMenuItem(
               title: Text('แก้ไข'),
               trailingIcon: Icon(Icons.edit_sharp),
-              // onPressed:
+              onPressed: () => {},
                         ),
                         FocusedMenuItem(
               title: Text('ลบ'),
@@ -54,7 +54,7 @@ class ListItemWidget extends StatelessWidget {
                 Icons.delete_forever,
               ),
               backgroundColor: Colors.red,
-              // onPressed:
+              onPressed: () => {},
                         ),
                       ],
                       blurBackgroundColor: Colors.blueGrey[900],

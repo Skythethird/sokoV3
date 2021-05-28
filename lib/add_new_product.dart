@@ -49,8 +49,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Product'),
-        backgroundColor: Color(0xff3D3D3D),
+        backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
       ),
+      backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
       body: Container(
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(
@@ -205,19 +206,18 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   },
                 ),
               ),
-              // ElevatedButton(
-              //     onPressed: () {
-              //       insertProduct();
-              //       // _detail = "4512";
-              //     },
-              //     child: Text("Submit"))
-              // new SizedBox(
-              //   height: 10.0,
-              // ),
-              // new RaisedButton(
-              //   onPressed: _validateInputs,
-              //   child: new Text('Validate'),
-              // )
+              ElevatedButton(
+                  onPressed: () {
+                    insertProduct();
+                  },
+                  // style: ElevatedButton.styleFrom(
+                  //   primary: Colors.green,
+                  //   onPrimary: Colors.white,
+                  // ),
+                  child: Text("Add")),
+              new SizedBox(
+                height: 10.0,
+              ),
             ],
           ),
         ),
