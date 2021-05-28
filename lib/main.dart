@@ -87,7 +87,7 @@ void main() {
           }
         },
       ),
-    // debugShowCheckedModeBanner: false,
+    debugShowCheckedModeBanner: false,
     // home: Home(),
   ));
 }
