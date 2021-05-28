@@ -9,6 +9,8 @@ import 'add_new_product.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'filter_test.dart';
 import 'list_test.dart';
+import 'database_helper.dart';
+
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
   @override
@@ -16,28 +18,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final dbHelper = DatabaseHelper.instance;
 
-  List<Map<String, dynamic>> allProduct;
+  List<Map<String, dynamic>> allProducts;
 
-  Future<bool> readProduct() async {
-    allProduct = await dbHelper.queryAllRows();
-    print(allProduct);
+  Future<bool> getProduct() async {
+    allProducts = await dbHelper.queryAllRows();
+    print(allProducts);
     return true;
   }
 
   final List<ListItem> items = List.from(listItems);
-  String _counter,_value = "";
+  String _counter, _value = "";
   String query = '';
-  Future _barcode() async{
-
-    _counter = await FlutterBarcodeScanner.scanBarcode("#004397", "Cancel", true, ScanMode.DEFAULT);
+  Future _barcode() async {
+    _counter = await FlutterBarcodeScanner.scanBarcode(
+        "#004397", "Cancel", true, ScanMode.DEFAULT);
 
     setState(() {
-      _value= _counter;
+      _value = _counter;
     });
-
   }
 
   @override
@@ -45,30 +45,50 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: getAppBar(),
 
-      body: SingleChildScrollView(
-              child: Column(
-          children: [
-            AnimatedSearchBar(),
-            // ListItemWidget(item:listItems[0]),
-            SizedBox(
-              height: 400,
-              child: AnimatedList(
-                initialItemCount: items.length,
-                itemBuilder: (context, index, animation) => ListItemWidget(
-                  item: items[index],
-                  animation:  animation,
-                  onClicked: () {},
-                )),
-            )
-            
-          ],
-        ),
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     children: [
+      //       AnimatedSearchBar(),
+      //       // ListItemWidget(item:listItems[0]),
+      //       // SizedBox(
+      //       //         height: 400,
+      //       //         child: AnimatedList(
+      //       //             initialItemCount: items.length,
+      //       //             itemBuilder: (context, index, animation) =>
+      //       //                 ListItemWidget(
+      //       //                   item: items[index],
+      //       //                   animation: animation,
+      //       //                   onClicked: () {},
+      //       //                 )),
+      //       //       );
+      //     ],
+      //   ),
+      // ),
+      body: FutureBuilder(
+        future: getProduct(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: allProducts.length,
+              itemBuilder: (BuildContext context, int index) {
+                var myProduct = allProducts[index];
+                return ListTile(
+                    title: Text(myProduct['productname']),
+                    subtitle: Text(myProduct['amount'].toString()));
+              },
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _barcode,
         tooltip: 'Increment',
         child: Icon(Icons.qr_code_2),
-        ),
+      ),
       // body: SingleChildScrollView(
       //         child: Column(
       //     children: [
@@ -77,31 +97,28 @@ class _HomeState extends State<Home> {
       //     ],
       //   ),
       // ),
-      
     );
   }
 
-
-Widget getAppBar() {
-  return AppBar(
-    title: Text('List product'),
-    actions: [
-      Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddNewProductPage()));
-        },
-        child: Icon(
-            Icons.add
-        ),
-      )
-      )
-    ],
-    backgroundColor: Color(0xff3D3D3D),
-  );
-}
+  Widget getAppBar() {
+    return AppBar(
+      title: Text('List product'),
+      actions: [
+        Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddNewProductPage()));
+              },
+              child: Icon(Icons.add),
+            ))
+      ],
+      backgroundColor: Color(0xff3D3D3D),
+    );
+  }
 
 // Widget getBody() {
 //   bool _folded = true;
@@ -147,7 +164,7 @@ Widget getAppBar() {
 //                         color: Colors.blue[900],
 //                       ),
 //                     ),
-                    
+
 //                     onTap: () {
 //                       setState(() {
 //                         print("yayyyy");
