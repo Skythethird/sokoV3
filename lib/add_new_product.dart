@@ -210,6 +210,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               ElevatedButton(
                   onPressed: () {
                     insertProduct();
+                    Navigator.pop(context);
                   },
                   // style: ElevatedButton.styleFrom(
                   //   primary: Colors.green,

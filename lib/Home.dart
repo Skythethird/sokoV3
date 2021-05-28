@@ -9,6 +9,7 @@ import 'add_new_product.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'filter_test.dart';
 import 'database_helper.dart';
+import 'detail_item.dart';
 
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
@@ -159,6 +160,65 @@ class _HomeState extends State<Home> {
       //     ),
       //   ],
       // ),
+
+      body: Column(
+        children: [
+          buildSearch(),
+          FutureBuilder(
+            future: getProduct(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (_list == null) {
+                _list = allProducts;
+              }
+              if (snapshot.hasData) {
+                return Expanded(
+                    child: ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: _list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var myProduct = _list[index];
+                    return Dismissible(
+                      key: UniqueKey(),
+                      onDismissed: (direction) {
+                        setState(() {
+                          List.from(allProducts).removeAt(index);
+                          deleteProduct(myProduct['id']);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Product Deleted')));
+                      },
+                      background: Container(color: Colors.red),
+                      child: ListTile(
+                        onTap: () {
+                          print('yay');
+                          String query;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailItem(query)));
+                        },
+                        leading: Icon(Icons.image),
+                        title: Text(myProduct['productname']),
+                        subtitle: Text(myProduct['amount'].toString()),
+                        trailing: Icon(Icons.keyboard_arrow_right),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(
+                    height: 5.0,
+                    color: Colors.black,
+                  ),
+                ));
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _barcode,
         child: Icon(Icons.qr_code_2),
@@ -172,7 +232,7 @@ class _HomeState extends State<Home> {
       title: Text('List product'),
       actions: [
         Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -180,7 +240,7 @@ class _HomeState extends State<Home> {
                     MaterialPageRoute(
                         builder: (context) => AddNewProductPage()));
               },
-              child: Icon(Icons.add),
+              child: Icon(Icons.add,size: 32,),
             ))
       ],
       // backgroundColor: Color(0xff3D3D3D),
