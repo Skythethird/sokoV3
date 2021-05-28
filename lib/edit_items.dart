@@ -1,16 +1,15 @@
 import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sokoV3/add_image.dart';
 import 'database_helper.dart';
 
-class AddNewProductPage extends StatefulWidget {
+class EditProductPage extends StatefulWidget {
   @override
-  _AddNewProductPageState createState() => _AddNewProductPageState();
+  _EditProductPage createState() => _EditProductPage();
 }
 
-class _AddNewProductPageState extends State<AddNewProductPage> {
+class _EditProductPage extends State<EditProductPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _nameProduct;
@@ -215,7 +214,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   //   primary: Colors.green,
                   //   onPrimary: Colors.white,
                   // ),
-                  child: Text("Add")),
+                  child: Text("Edit")),
               new SizedBox(
                 height: 10.0,
               ),
@@ -225,10 +224,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       ),
     );
   }
-void Saveimage(path) async{
-   SharedPreferences saveimage = await SharedPreferences.getInstance();
-   saveimage.setString("imagepath", path);
-}
+
 //   void _validateInputs() {
 //     if (_formKey.currentState.validate()) {
 // //    If all data are correct then save data to out variables

@@ -4,6 +4,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'package:sokoV3/Searchbar.dart';
+import 'package:sokoV3/edit_items.dart';
 import '../detail_item.dart';
 
 class ListItemWidget extends StatefulWidget {
@@ -294,6 +295,10 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                         ],
                       )).then((value) => {_controller.text = '0'});
             } else if (value == 3) {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditProductPage()));
 
             } else if (value == 4) {
               showDialog(
@@ -325,9 +330,10 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               child: Text("ลดจำนวนสินค้า"),
             ),
             PopupMenuItem(
-              value: 3,
-              child: Text("แก้ไข"),
-            ),
+                value: 3,
+                child: Text("แก้ไข"),
+                
+              ),
             PopupMenuItem(
               value: 4,
               child: Text("ลบ"),

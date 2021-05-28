@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sokoV3/barcode_generate.dart';
 import 'package:sokoV3/database_helper.dart';
 import 'detail.dart';
 import 'AnimatedSearchBar.dart';
@@ -55,9 +56,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(),
-      backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
+
       body: SingleChildScrollView(
-              child: Column(
+        child: Column(
           children: [
             buildSearch(),
             // AnimatedSearchBar(),
@@ -135,28 +136,25 @@ class _HomeState extends State<Home> {
     );
   }
 
-
-Widget getAppBar() {
-  return AppBar(
-    title: Text('List product'),
-    actions: [
-      Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddNewProductPage()));
-        },
-        child: Icon(
-            Icons.add
-        ),
-      )
-      )
-    ],
-    // backgroundColor: Color(0xff3D3D3D),
-    backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
-  );
-}
+  Widget getAppBar() {
+    return AppBar(
+      title: Text('List product'),
+      actions: [
+        Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddNewProductPage()));
+              },
+              child: Icon(Icons.add),
+            ))
+      ],
+      backgroundColor: Color(0xff3D3D3D),
+    );
+  }
 
 Widget buildSearch() => SearchWidget(
         text: query,
@@ -294,7 +292,7 @@ Widget buildSearch() => SearchWidget(
 //         onChanged: searchBook,
 //       );
 // void searchBook(String query) {
-//     final books = allBooks.where((book) {
+//     final books = allProducts.where((book) {
 //       final titleLower = book.title.toLowerCase();
 //       final authorLower = book.author.toLowerCase();
 //       final searchLower = query.toLowerCase();
@@ -308,4 +306,33 @@ Widget buildSearch() => SearchWidget(
 //       // this.books = books;
 //     });
 //   }
+void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.qr_code_scanner),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _barcode();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.qr_code_sharp),
+                    title: new Text('Camera'),
+                    onTap: () {
+                       Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => BarcodeGen()));
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }
