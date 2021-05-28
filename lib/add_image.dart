@@ -17,6 +17,9 @@ class _PicState extends State<Pic> {
     setState(() {
       _image = image;
     });
+    // final appDir = await syspaths.getApplicationDocumentsDirectory();    
+    // final fileName = path.basename(image.path);    
+    // final savedImage = await image.copy('${appDir.path}/$fileName');
   }
 
   _imgFromGallery() async {
@@ -26,6 +29,7 @@ class _PicState extends State<Pic> {
     setState(() {
       _image = image;
     });
+    
   }
 
   @override
