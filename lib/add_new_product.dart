@@ -1,6 +1,7 @@
 import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sokoV3/add_image.dart';
 import 'database_helper.dart';
 
@@ -224,7 +225,10 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       ),
     );
   }
-
+void Saveimage(path) async{
+   SharedPreferences saveimage = await SharedPreferences.getInstance();
+   saveimage.setString("imagepath", path);
+}
 //   void _validateInputs() {
 //     if (_formKey.currentState.validate()) {
 // //    If all data are correct then save data to out variables

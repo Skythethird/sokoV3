@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sokoV3/barcode_generate.dart';
 import 'package:sokoV3/database_helper.dart';
 import 'detail.dart';
 import 'AnimatedSearchBar.dart';
@@ -127,7 +128,9 @@ class _HomeState extends State<Home> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _barcode,
+        onPressed: () {
+         _showPicker(context);
+        },
         tooltip: 'Increment',
         child: Icon(Icons.qr_code_2),
       ),
@@ -228,7 +231,7 @@ Widget getAppBar() {
 //         onChanged: searchBook,
 //       );
 // void searchBook(String query) {
-//     final books = allBooks.where((book) {
+//     final books = allProducts.where((book) {
 //       final titleLower = book.title.toLowerCase();
 //       final authorLower = book.author.toLowerCase();
 //       final searchLower = query.toLowerCase();
@@ -242,4 +245,33 @@ Widget getAppBar() {
 //       // this.books = books;
 //     });
 //   }
+void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.qr_code_scanner),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _barcode();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.qr_code_sharp),
+                    title: new Text('Camera'),
+                    onTap: () {
+                       Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => BarcodeGen()));
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }

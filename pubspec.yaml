@@ -38,6 +38,12 @@ dependencies:
   flutter_barcode_scanner: ^1.0.2
   image_picker: ^0.6.7+14
   focused_menu: ^1.0.2
+  barcode_widget: ^2.0.1
+  barcode_image: ^2.0.0
+  path: ^1.8.0
+  shared_preferences: ^2.0.6
+  screenshot: ^0.3.0
+  share: ^2.0.4
 
 flutter_icons:
   android: true
