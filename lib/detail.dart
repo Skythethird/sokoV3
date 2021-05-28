@@ -101,7 +101,7 @@ class _DetailpageState extends State<Detailpage> {
                       ),
                     ),
                     controller: _controller,
-                    keyboardType: TextInputType.numberWithOptions(
+                 keyboardType: TextInputType.numberWithOptions(
                       decimal: false,
                       signed: true,
                     ),
