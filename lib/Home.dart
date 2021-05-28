@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sokoV3/database_helper.dart';
-import 'detail.dart';
 import 'AnimatedSearchBar.dart';
 import 'Widget/list_item_widget.dart';
 import 'data/list_items.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'add_new_product.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'filter_test.dart';
-import 'list_test.dart';
 import 'database_helper.dart';
 
 // import 'model/list_item.dart';
@@ -128,7 +125,7 @@ class _HomeState extends State<Home> {
       title: Text('List product'),
       actions: [
         Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -136,7 +133,7 @@ class _HomeState extends State<Home> {
                     MaterialPageRoute(
                         builder: (context) => AddNewProductPage()));
               },
-              child: Icon(Icons.add),
+              child: Icon(Icons.add,size: 32,),
             ))
       ],
       backgroundColor: Color(0xff3D3D3D),

@@ -323,20 +323,48 @@ class _ListItemWidgetState extends State<ListItemWidget> {
           itemBuilder: (context) => [
             PopupMenuItem(
               value: 1,
-              child: Text("เพิ่มจำนวนสินค้า"),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_circle_up,size: 35,color: Colors.green[300],),
+                  Container(
+                    margin: const EdgeInsets.only(left:10),
+                    child: Text("เพิ่มจำนวนสินค้า",style: TextStyle(fontSize: 20),)),
+                ],
+              ),
             ),
             PopupMenuItem(
               value: 2,
-              child: Text("ลดจำนวนสินค้า"),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_circle_down,size: 35,color: Colors.red[300],),
+                  Container(
+                    margin: const EdgeInsets.only(left:10),
+                    child: Text("ลดจำนวนสินค้า",style: TextStyle(fontSize: 20),)),
+                ],
+              ),
             ),
             PopupMenuItem(
                 value: 3,
-                child: Text("แก้ไข"),
+                child: Row(
+                  children: [
+                    Icon(Icons.edit,size: 35,color: Colors.blue[300],),
+                    Container(
+                      margin: const EdgeInsets.only(left:10),
+                      child: Text("แก้ไข",style: TextStyle(fontSize: 20),)),
+                  ],
+                ),
                 
               ),
             PopupMenuItem(
               value: 4,
-              child: Text("ลบ"),
+              child: Row(
+                children: [
+                  Icon(Icons.delete,size: 35,color: Colors.red,),
+                  Container(
+                    margin: const EdgeInsets.only(left:10),
+                    child: Text("ลบ",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 20),)),
+                ],
+              ),
             ),
           ],
         ),
