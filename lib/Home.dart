@@ -21,9 +21,12 @@ class _HomeState extends State<Home> {
   final dbHelper = DatabaseHelper.instance;
 
   List<Map<String, dynamic>> allProducts;
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  List<Map<String, dynamic>> _list;
 
   Future<bool> getProduct() async {
     allProducts = await dbHelper.queryAllRows();
+    // _list = allProducts;
     print(allProducts);
     return true;
   }
@@ -33,8 +36,10 @@ class _HomeState extends State<Home> {
     print('Delete Product ID: $id');
     return numberOfDelete;
   }
-
-  final List<ListItem> items = List.from(listItems);
+  final List<ListItem> items1 = List.from(listItems);
+  final List<ListItem> items2 = List.from(listItems);
+  final removedItems = [];
+  List<ListItem> _items = List.from(listItems);
   String _counter, _value = "";
   String query = '';
   Future _barcode() async {
@@ -54,95 +59,77 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
               child: Column(
           children: [
-            AnimatedSearchBar(),
+            buildSearch(),
+            // AnimatedSearchBar(),
             // ListItemWidget(item:listItems[0]),
             SizedBox(
               height: 400,
               child: AnimatedList(
-                initialItemCount: items.length,
-                itemBuilder: (context, index, animation) => ListItemWidget(
-                  item: items[index],
+                key: _listKey,
+                initialItemCount: items1.length,
+                itemBuilder: (context, index, animation) => 
+                // Text(_items.length.toString())
+                ListItemWidget(
+                  item: items1[index],
                   animation:  animation,
                   onClicked: () {},
-                )),
+                )
+                ),
             )
             
           ],
         ),
-
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       AnimatedSearchBar(),
-      //       // ListItemWidget(item:listItems[0]),
-      //       // SizedBox(
-      //       //         height: 400,
-      //       //         child: AnimatedList(
-      //       //             initialItemCount: items.length,
-      //       //             itemBuilder: (context, index, animation) =>
-      //       //                 ListItemWidget(
-      //       //                   item: items[index],
-      //       //                   animation: animation,
-      //       //                   onClicked: () {},
-      //       //                 )),
-      //       //       );
-      //     ],
-      //   ),
-      // ),
-      // body: FutureBuilder(
-      //   future: getProduct(),
-      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-      //     if (snapshot.hasData) {
-      //       return ListView.builder(
-      //         itemCount: allProducts.length,
-      //         itemBuilder: (BuildContext context, int index) {
-      //           var myProduct = allProducts[index];
-      //           return Dismissible(
-      //             key: UniqueKey(),
-      //             onDismissed: (direction){
-      //               setState(() {
-      //                 List.from(allProducts).removeAt(index);
-      //                 deleteProduct(myProduct['id']);
-      //               });
-      //               ScaffoldMessenger.of(context).showSnackBar(
-      //                 SnackBar(content: Text('Product Deleted'))
-      //               );
-      //             },
-      //             background: Container(color: Colors.red),
-      //             child: ListTile(
-      //                 leading: Icon(Icons.image),
-      //                 title: Text(myProduct['productname']),
-      //                 subtitle: Text(myProduct['amount'].toString()),
-      //                 trailing: Icon(Icons.keyboard_arrow_right),
-      //                 ),
-      //           );
-                    
-      //         },
-      //       );
-      //     } else {
-      //       return Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-      //   },
-      // ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _barcode,
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.qr_code_2),
-      // ),
-      // body: SingleChildScrollView(
-      //         child: Column(
-      //     children: [
-      //       Column(children: [AnimatedSearchBar()]),
-      //       ListItemWidget(item:listItems[0]),
-      //     ],
-      //   ),
-      // ),
       ),
+
+      
+      // body: Column(
+      //   children: [
+      //     buildSearch(),
+      //     FutureBuilder(
+      //       future: getProduct(),
+      //       builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //         if(_list == null){_list = allProducts;}
+      //         if (snapshot.hasData) {
+      //           return Expanded(
+      //             child:ListView.separated(
+      //             padding: const EdgeInsets.all(8),
+      //             itemCount: _list.length,
+      //             itemBuilder: (BuildContext context, int index) {
+      //               var myProduct = _list[index];
+      //               return Dismissible(
+      //                 key: UniqueKey(),
+      //                 onDismissed: (direction){
+      //                   setState(() {
+      //                     List.from(allProducts).removeAt(index);
+      //                     deleteProduct(myProduct['id']);
+      //                   });
+      //                   ScaffoldMessenger.of(context).showSnackBar(
+      //                     SnackBar(content: Text('Product Deleted'))
+      //                   );
+      //                 },
+      //                 background: Container(color: Colors.red),
+      //                 child: ListTile(
+      //                     leading: Icon(Icons.image),
+      //                     title: Text(myProduct['productname']),
+      //                     subtitle: Text(myProduct['amount'].toString()),
+      //                     trailing: Icon(Icons.keyboard_arrow_right),
+      //                     ),
+      //               );
+                        
+      //             },
+      //             separatorBuilder: (BuildContext context, int index) => const Divider(height: 5.0,color: Colors.black,),
+      //           ));
+      //         } else {
+      //           return Center(
+      //             child: CircularProgressIndicator(),
+      //           );
+      //         }
+      //       },
+      //     ),
+      //   ],
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: _barcode,
-        tooltip: 'Increment',
         child: Icon(Icons.qr_code_2),
       ),
     );
@@ -170,6 +157,79 @@ Widget getAppBar() {
     backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
   );
 }
+
+Widget buildSearch() => SearchWidget(
+        text: query,
+        hintText: 'Title or Author Name',
+        onChanged: searchProducts,
+      );
+
+  void searchProducts(String query){
+    List deleteList = [];
+    String textLowercase = query.toLowerCase();
+    items2.asMap().forEach((index, element) {
+      String foodLowercase = element.title.toLowerCase();
+      if (!foodLowercase.contains(textLowercase)) {
+        deleteList.add(element);
+      } else if (foodLowercase.contains(textLowercase) &&
+          items1.indexOf(element) == -1) {
+        insertItem(items1.length, element);
+      }
+    });
+
+    deleteList.forEach((element) {
+      int deleteIndex = items1.indexOf(element);
+      if (items1.indexOf(element) != -1) {
+        removeItem(deleteIndex);
+      }
+    });
+  }
+
+  void insertItem(int index, ListItem item) {
+    if (removedItems.length != 0) {
+      items1.insert(index, removedItems.first);
+      removedItems.removeAt(0);
+      items1.sort((a,b) => a.title.compareTo(b.title));
+      _listKey.currentState.insertItem(index);
+    }
+  }
+
+  void removeItem(int index) {
+    removedItems.add(items1[index]);
+    final item = items1.removeAt(index);
+    print(items1.length);
+    items1.sort((a,b) => a.title.compareTo(b.title));
+    _listKey.currentState.removeItem(
+      index,
+      (context, animation) => ListItemWidget(item: item, animation:animation),
+    );
+  }
+
+// void searchBook(String query) {
+//     final items = listItems.where((item) {
+//       final titleLower = item.title.toLowerCase();
+//       final searchLower = query.toLowerCase();
+//       return titleLower.contains(searchLower) ;
+//     }).toList();
+
+//     setState(() {
+//       this.query = query;
+//       _items = items;
+//     });
+//   }
+
+  void searchBook2(String query) {
+    final items = allProducts.where((myProduct) {
+      final titleLower = myProduct['productname'].toLowerCase();
+      final searchLower = query.toLowerCase();
+      return titleLower.contains(searchLower) ;
+    }).toList();
+
+    setState(() {
+      this.query = query;
+      _list = items;
+    });
+  }
 
 // Widget getBody() {
 //   bool _folded = true;
