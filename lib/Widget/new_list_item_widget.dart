@@ -23,6 +23,17 @@ class ListItemWidget extends StatefulWidget {
 }
 
 class _ListItemWidgetState extends State<ListItemWidget> {
+
+  final dbHelper = DatabaseHelper.instance;
+
+  Future<int> deleteProduct(int id) async {
+    var numberOfDelete = await dbHelper.delete(id);
+    print('Delete Product ID: $id');
+    return numberOfDelete;
+  }
+
+
+
   @override
   Widget build(BuildContext context) => buildItem(context);
 
@@ -37,9 +48,8 @@ class _ListItemWidgetState extends State<ListItemWidget> {
   Widget buildItem(BuildContext context) => GestureDetector(
         onTap: () {
           print('yay');
-          String query;
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DetailItem(query)));
+              MaterialPageRoute(builder: (context) => DetailItem(widget.item['id'])));
         },
         child: Container(
           margin: EdgeInsets.all(8),
@@ -316,7 +326,11 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                         actions: [
                           TextButton(
                             child: Text("ใช่! ฉันต้องการลบ"),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                deleteProduct(widget.item['id']);  
+                              });                              
+                              },
                           ),
                           TextButton(
                             child: Text("ยกเลิก"),
