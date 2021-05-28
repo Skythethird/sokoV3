@@ -11,6 +11,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'filter_test.dart';
 import 'list_test.dart';
 import 'database_helper.dart';
+import 'detail_item.dart';
 
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
@@ -37,6 +38,7 @@ class _HomeState extends State<Home> {
     print('Delete Product ID: $id');
     return numberOfDelete;
   }
+
   final List<ListItem> items1 = List.from(listItems);
   final List<ListItem> items2 = List.from(listItems);
   final removedItems = [];
@@ -57,78 +59,89 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: getAppBar(),
 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildSearch(),
-            // AnimatedSearchBar(),
-            // ListItemWidget(item:listItems[0]),
-            SizedBox(
-              height: 400,
-              child: AnimatedList(
-                key: _listKey,
-                initialItemCount: items1.length,
-                itemBuilder: (context, index, animation) => 
-                // Text(_items.length.toString())
-                ListItemWidget(
-                  item: items1[index],
-                  animation:  animation,
-                  onClicked: () {},
-                )
-                ),
-            )
-            
-          ],
-        ),
-      ),
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     children: [
+      //       buildSearch(),
+      //       // AnimatedSearchBar(),
+      //       // ListItemWidget(item:listItems[0]),
+      //       SizedBox(
+      //         height: 400,
+      //         child: AnimatedList(
+      //           key: _listKey,
+      //           initialItemCount: items1.length,
+      //           itemBuilder: (context, index, animation) =>
+      //           // Text(_items.length.toString())
+      //           ListItemWidget(
+      //             item: items1[index],
+      //             animation:  animation,
+      //             onClicked: () {},
+      //           )
+      //           ),
+      //       )
 
-      
-      // body: Column(
-      //   children: [
-      //     buildSearch(),
-      //     FutureBuilder(
-      //       future: getProduct(),
-      //       builder: (BuildContext context, AsyncSnapshot snapshot) {
-      //         if(_list == null){_list = allProducts;}
-      //         if (snapshot.hasData) {
-      //           return Expanded(
-      //             child:ListView.separated(
-      //             padding: const EdgeInsets.all(8),
-      //             itemCount: _list.length,
-      //             itemBuilder: (BuildContext context, int index) {
-      //               var myProduct = _list[index];
-      //               return Dismissible(
-      //                 key: UniqueKey(),
-      //                 onDismissed: (direction){
-      //                   setState(() {
-      //                     List.from(allProducts).removeAt(index);
-      //                     deleteProduct(myProduct['id']);
-      //                   });
-      //                   ScaffoldMessenger.of(context).showSnackBar(
-      //                     SnackBar(content: Text('Product Deleted'))
-      //                   );
-      //                 },
-      //                 background: Container(color: Colors.red),
-      //                 child: ListTile(
-      //                     leading: Icon(Icons.image),
-      //                     title: Text(myProduct['productname']),
-      //                     subtitle: Text(myProduct['amount'].toString()),
-      //                     trailing: Icon(Icons.keyboard_arrow_right),
-      //                     ),
-      //               );
-                        
-      //             },
-      //             separatorBuilder: (BuildContext context, int index) => const Divider(height: 5.0,color: Colors.black,),
-      //           ));
-      //         } else {
-      //           return Center(
-      //             child: CircularProgressIndicator(),
-      //           );
-      //         }
-      //       },
-      //     ),
-      //   ],
+      //     ],
+      //   ),
       // ),
+
+      body: Column(
+        children: [
+          buildSearch(),
+          FutureBuilder(
+            future: getProduct(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (_list == null) {
+                _list = allProducts;
+              }
+              if (snapshot.hasData) {
+                return Expanded(
+                    child: ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: _list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var myProduct = _list[index];
+                    return Dismissible(
+                      key: UniqueKey(),
+                      onDismissed: (direction) {
+                        setState(() {
+                          List.from(allProducts).removeAt(index);
+                          deleteProduct(myProduct['id']);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Product Deleted')));
+                      },
+                      background: Container(color: Colors.red),
+                      child: ListTile(
+                        onTap: () {
+                          print('yay');
+                          String query;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailItem(query)));
+                        },
+                        leading: Icon(Icons.image),
+                        title: Text(myProduct['productname']),
+                        subtitle: Text(myProduct['amount'].toString()),
+                        trailing: Icon(Icons.keyboard_arrow_right),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(
+                    height: 5.0,
+                    color: Colors.black,
+                  ),
+                ));
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _barcode,
         child: Icon(Icons.qr_code_2),
@@ -156,13 +169,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-Widget buildSearch() => SearchWidget(
+  Widget buildSearch() => SearchWidget(
         text: query,
         hintText: 'Title or Author Name',
         onChanged: searchProducts,
       );
 
-  void searchProducts(String query){
+  void searchProducts(String query) {
     List deleteList = [];
     String textLowercase = query.toLowerCase();
     items2.asMap().forEach((index, element) {
@@ -187,7 +200,7 @@ Widget buildSearch() => SearchWidget(
     if (removedItems.length != 0) {
       items1.insert(index, removedItems.first);
       removedItems.removeAt(0);
-      items1.sort((a,b) => a.title.compareTo(b.title));
+      items1.sort((a, b) => a.title.compareTo(b.title));
       _listKey.currentState.insertItem(index);
     }
   }
@@ -196,10 +209,10 @@ Widget buildSearch() => SearchWidget(
     removedItems.add(items1[index]);
     final item = items1.removeAt(index);
     print(items1.length);
-    items1.sort((a,b) => a.title.compareTo(b.title));
+    items1.sort((a, b) => a.title.compareTo(b.title));
     _listKey.currentState.removeItem(
       index,
-      (context, animation) => ListItemWidget(item: item, animation:animation),
+      (context, animation) => ListItemWidget(item: item, animation: animation),
     );
   }
 
@@ -220,7 +233,7 @@ Widget buildSearch() => SearchWidget(
     final items = allProducts.where((myProduct) {
       final titleLower = myProduct['productname'].toLowerCase();
       final searchLower = query.toLowerCase();
-      return titleLower.contains(searchLower) ;
+      return titleLower.contains(searchLower);
     }).toList();
 
     setState(() {
@@ -306,7 +319,7 @@ Widget buildSearch() => SearchWidget(
 //       // this.books = books;
 //     });
 //   }
-void _showPicker(context) {
+  void _showPicker(context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -325,8 +338,10 @@ void _showPicker(context) {
                     leading: new Icon(Icons.qr_code_sharp),
                     title: new Text('Camera'),
                     onTap: () {
-                       Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => BarcodeGen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BarcodeGen()));
                     },
                   ),
                 ],
