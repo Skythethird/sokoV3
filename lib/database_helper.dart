@@ -62,6 +62,23 @@ class DatabaseHelper{
       await db.rawQuery('SELECT COUNT(*) from $table')
     );
   }
+
+  Future<List<Map<String, dynamic>>> queryAllRows() async{
+    Database db = await instance.database;
+    List<Map<String, dynamic>> myQueryList = await db.rawQuery('SELECT * FROM $table');
+    return myQueryList;
+  }
+
+  Future<int> update(int id, Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    return await db.update(table, row,
+        where: '$columnID = ?', whereArgs: [id]);
+  }
+
+  Future<int> delete(int id) async {
+    Database db = await instance.database;
+    return await db.delete(table, where: '$columnID = ?', whereArgs: [id]);
+  }
   
 
 }

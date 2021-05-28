@@ -22,8 +22,9 @@ class ListItemWidget extends StatelessWidget {
 
   Widget buildItem(BuildContext context) => GestureDetector(
     onTap:(){print('yay');
-      Navigator.push(
-      context, MaterialPageRoute(builder: (context) => DetailItem()));},
+      String query;
+            Navigator.push(
+            context, MaterialPageRoute(builder: (context) => DetailItem(query)));},
 
       child: Container(
         margin: EdgeInsets.all(8),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sokoV3/database_helper.dart';
 import 'detail.dart';
 import 'AnimatedSearchBar.dart';
 import 'Widget/list_item_widget.dart';
@@ -6,6 +7,10 @@ import 'data/list_items.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'add_new_product.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'filter_test.dart';
+import 'list_test.dart';
+import 'database_helper.dart';
+
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
   @override
@@ -13,40 +18,113 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<ListItem> items = List.from(listItems);
-  String _counter,_value = "";
-  Future _barcode() async{
+  final dbHelper = DatabaseHelper.instance;
 
-    _counter = await FlutterBarcodeScanner.scanBarcode("#004397", "Cancel", true, ScanMode.DEFAULT);
+  List<Map<String, dynamic>> allProducts;
+
+  Future<bool> getProduct() async {
+    allProducts = await dbHelper.queryAllRows();
+    print(allProducts);
+    return true;
+  }
+
+  Future<int> deleteProduct(int id) async {
+    var numberOfDelete = await dbHelper.delete(id);
+    print('Delete Product ID: $id');
+    return numberOfDelete;
+  }
+
+  final List<ListItem> items = List.from(listItems);
+  String _counter, _value = "";
+  String query = '';
+  Future _barcode() async {
+    _counter = await FlutterBarcodeScanner.scanBarcode(
+        "#004397", "Cancel", true, ScanMode.DEFAULT);
 
     setState(() {
-      _value= _counter;
+      _value = _counter;
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(),
       backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
-      body: SingleChildScrollView(
-              child: Column(
-          children: [
-            AnimatedSearchBar(),
-            // ListItemWidget(item:listItems[0]),
-            SizedBox(
-              height: 400,
-              child: AnimatedList(
-                initialItemCount: items.length,
-                itemBuilder: (context, index, animation) => ListItemWidget(
-                  item: items[index],
-                  animation:  animation,
-                  onClicked: () {},
-                )),
-            )
+      // body: SingleChildScrollView(
+      //         child: Column(
+      //     children: [
+      //       AnimatedSearchBar(),
+      //       // ListItemWidget(item:listItems[0]),
+      //       SizedBox(
+      //         height: 400,
+      //         child: AnimatedList(
+      //           initialItemCount: items.length,
+      //           itemBuilder: (context, index, animation) => ListItemWidget(
+      //             item: items[index],
+      //             animation:  animation,
+      //             onClicked: () {},
+      //           )),
+      //       )
             
-          ],
-        ),
+      //     ],
+      //   ),
+
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     children: [
+      //       AnimatedSearchBar(),
+      //       // ListItemWidget(item:listItems[0]),
+      //       // SizedBox(
+      //       //         height: 400,
+      //       //         child: AnimatedList(
+      //       //             initialItemCount: items.length,
+      //       //             itemBuilder: (context, index, animation) =>
+      //       //                 ListItemWidget(
+      //       //                   item: items[index],
+      //       //                   animation: animation,
+      //       //                   onClicked: () {},
+      //       //                 )),
+      //       //       );
+      //     ],
+      //   ),
+      // ),
+      body: FutureBuilder(
+        future: getProduct(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: allProducts.length,
+              itemBuilder: (BuildContext context, int index) {
+                var myProduct = allProducts[index];
+                return Dismissible(
+                  key: UniqueKey(),
+                  onDismissed: (direction){
+                    setState(() {
+                      List.from(allProducts).removeAt(index);
+                      deleteProduct(myProduct['id']);
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Product Deleted'))
+                    );
+                  },
+                  background: Container(color: Colors.red),
+                  child: ListTile(
+                      leading: Icon(Icons.image),
+                      title: Text(myProduct['productname']),
+                      subtitle: Text(myProduct['amount'].toString()),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      ),
+                );
+                    
+              },
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _barcode,
@@ -61,7 +139,6 @@ class _HomeState extends State<Home> {
       //     ],
       //   ),
       // ),
-      
     );
   }
 
@@ -132,7 +209,7 @@ Widget getAppBar() {
 //                         color: Colors.blue[900],
 //                       ),
 //                     ),
-                    
+
 //                     onTap: () {
 //                       setState(() {
 //                         print("yayyyy");
@@ -144,4 +221,25 @@ Widget getAppBar() {
 //         ],
 //       ));
 // }
+
+// Widget buildSearch() => SearchWidget(
+//         text: query,
+//         hintText: 'Title or Author Name',
+//         onChanged: searchBook,
+//       );
+// void searchBook(String query) {
+//     final books = allBooks.where((book) {
+//       final titleLower = book.title.toLowerCase();
+//       final authorLower = book.author.toLowerCase();
+//       final searchLower = query.toLowerCase();
+
+//       return titleLower.contains(searchLower) ||
+//           authorLower.contains(searchLower);
+//     }).toList();
+
+//     setState(() {
+//       this.query = query;
+//       // this.books = books;
+//     });
+//   }
 }
