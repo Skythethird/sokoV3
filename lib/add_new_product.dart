@@ -46,6 +46,8 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     print('Insert Produc ID: $id $row');
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

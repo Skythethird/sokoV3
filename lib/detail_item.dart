@@ -23,6 +23,26 @@ class _DetailItemState extends State<DetailItem> {
     return productData = await dbHelper.getProductData(items);
   }
 
+
+  void updateProductPlus() async {
+    var _amount = productData['amount'] + int.tryParse(_controller.text);
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnAmount: _amount,
+    };
+    final id = await dbHelper.update(widget.items, row);
+    print('Update Produc ID: $id $row');
+  }
+
+  void updateProductMinus() async {
+    var _amount = productData['amount'] - int.tryParse(_controller.text);
+    if(_amount < 0){_amount = 0;}
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnAmount: _amount,
+    };
+    final id = await dbHelper.update(widget.items, row);
+    print('Update Produc ID: $id $row');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +69,7 @@ class _DetailItemState extends State<DetailItem> {
               print(value);
               if (value == 1) {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProductPage()));
+                    MaterialPageRoute(builder: (context) => EditProductPage(widget.items)));
               } else if (value == 2) {
                 showDialog(
                     context: context,
@@ -293,7 +313,12 @@ class _DetailItemState extends State<DetailItem> {
                             ),
                             TextButton(
                               child: Text("Cofirm",style: TextStyle(fontSize: 20, color: Colors.green),),
-                              onPressed: () {},
+                              onPressed: () {
+                                updateProductPlus();
+                                setState(() {
+                                  Navigator.pop(context, 'Cancel');
+                                });
+                                },
                             ),
                           ],
                         )).then((value) => {_controller.text = '0'});
@@ -430,7 +455,11 @@ class _DetailItemState extends State<DetailItem> {
                             ),
                             TextButton(
                               child: Text("Cofirm",style: TextStyle(fontSize: 20, color: Colors.green),),
-                              onPressed: () {},
+                              onPressed: () { 
+                                updateProductMinus();
+                                setState(() {
+                                  Navigator.pop(context, 'Cancel');
+                                });},
                             ),
                           ],
                         )).then((value) => {_controller.text = '0'});

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:sokoV3/test.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'add_image.dart';
+
 class Detailpage extends StatefulWidget {
   @override
   _DetailpageState createState() => _DetailpageState();
@@ -14,24 +16,25 @@ class _DetailpageState extends State<Detailpage> {
   File _image;
 
 
+ final picker = ImagePicker();
+
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+    PickedFile image = await picker.getImage(
+        source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = File(image.path);
     });
   }
 
   _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+    PickedFile image = await picker.getImage(
+        source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = File(image.path);
     });
+    
   }
 
   void _showPicker(context) {

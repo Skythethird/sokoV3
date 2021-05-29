@@ -1,5 +1,7 @@
 // import 'package:flutter/material.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+
 import 'detail.dart';
 
 
@@ -74,7 +76,10 @@ import 'splash_screen.dart';
 import 'Home.dart';
 
 final Future _initFuture = Init.initialize();
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MaterialApp(
     theme:ThemeData(fontFamily: 'Quicksand-Bold') ,

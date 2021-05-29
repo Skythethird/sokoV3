@@ -4,6 +4,7 @@ import '../database_helper.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'package:sokoV3/edit_items.dart';
+import '../database_helper.dart';
 import '../detail_item.dart';
 import '../Home.dart';
 
@@ -30,6 +31,25 @@ class _ListItemWidgetState extends State<ListItemWidget> {
     var numberOfDelete = await dbHelper.delete(id);
     print('Delete Product ID: $id');
     return numberOfDelete;
+  }
+
+  void updateProductPlus() async {
+    var _amount = widget.item['amount'] + int.tryParse(_controller.text);
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnAmount: _amount,
+    };
+    final id = await dbHelper.update(widget.item['id'], row);
+    print('Update Produc ID: $id $row');
+  }
+
+  void updateProductMinus() async {
+    var _amount = widget.item['amount'] - int.tryParse(_controller.text);
+    if(_amount < 0){_amount = 0;}
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnAmount: _amount,
+    };
+    final id = await dbHelper.update(widget.item['id'], row);
+    print('Update Produc ID: $id $row');
   }
 
   @override
@@ -216,7 +236,10 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                               style:
                                   TextStyle(fontSize: 20, color: Colors.green),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              updateProductPlus();
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                            },
                           ),
                         ],
                       )).then((value) => {_controller.text = '0'});
@@ -335,13 +358,16 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                               style:
                                   TextStyle(fontSize: 20, color: Colors.green),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              updateProductMinus();
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                            },
                           ),
                         ],
                       )).then((value) => {_controller.text = '0'});
             } else if (value == 3) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditProductPage()));
+                  MaterialPageRoute(builder: (context) => EditProductPage(widget.item['id'])));
             } else if (value == 4) {
               showDialog(
                   context: context,
