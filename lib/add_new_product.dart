@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sokoV3/add_image.dart';
 import 'database_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddNewProductPage extends StatefulWidget {
   @override
@@ -43,6 +44,46 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     };
     final id = await dbHelper.insert(row);
     print('Insert Produc ID: $id $row');
+  }
+
+  final firestore = FirebaseFirestore.instance;
+  void _create() async{
+     try {
+      await firestore.collection('users').add({
+        'Name':  _nameProduct,
+        'Detail':  _detail,
+      });
+    } catch (e) {
+      print(e);
+    }
+
+  }
+  void _read() async {
+    Object documentSnapshot;
+    try {
+      documentSnapshot = await firestore.collection('users').get();
+      print(documentSnapshot);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _update() async {
+    try {
+      firestore.collection('users').doc('testUser').update({
+        'firstName': 'testUpdated',
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _delete() async {
+    try {
+      firestore.collection('users').doc('testUser').delete();
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -209,12 +250,9 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    insertProduct();
+                   insertProduct();
                   },
-                  // style: ElevatedButton.styleFrom(
-                  //   primary: Colors.green,
-                  //   onPrimary: Colors.white,
-                  // ),
+
                   child: Text("Add")),
               new SizedBox(
                 height: 10.0,
