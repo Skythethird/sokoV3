@@ -109,30 +109,28 @@ class _DetailItemState extends State<DetailItem> {
       backgroundColor: Color.fromRGBO(255, 252, 231, 1),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(8),
-              ),
-              Row(
-                // mainAxisSize: MainAxisAlignment.,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.network(
-                      "https://f.btwcdn.com/store-34660/product/39ebc6bf-499c-33dd-e649-5b8feb151781.jpg",
-                      height: 200,
-                      width: 200,
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.all(8),
-                child: Text(
-                  'name',
-                  style: TextStyle(fontSize: 28),
+          child: FutureBuilder(
+            future: getProduct(widget.items),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) { 
+                return Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(8),
+                ),
+                Row(
+                  // mainAxisSize: MainAxisAlignment.,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        "https://f.btwcdn.com/store-34660/product/39ebc6bf-499c-33dd-e649-5b8feb151781.jpg",
+                        height: 200,
+                        width: 200,
+                      ),
+                    )
+                  ],
                 ),
               ),
               Container(
@@ -141,16 +139,11 @@ class _DetailItemState extends State<DetailItem> {
                   "จำนวน: ",
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
-              Container(
-                // padding: const EdgeInsets.all(50),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border(
-                    top: BorderSide(width: 1.0, color: Color(0xFF000000)),
-                    left: BorderSide(width: 1.0, color: Color(0xFF000000)),
-                    right: BorderSide(width: 1.0, color: Color(0xFF000000)),
-                    bottom: BorderSide(width: 1.0, color: Color(0xFF000000)),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: Text(
+                    "จำนวน: ${productData['amount']}",
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
                 margin: EdgeInsets.all(20),

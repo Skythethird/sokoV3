@@ -1,6 +1,5 @@
 import 'dart:ffi';
 import 'dart:io';
-import 'dart:ui';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:barcode_image/barcode_image.dart';
 import 'package:barcode_widget/barcode_widget.dart';
@@ -27,64 +26,36 @@ class _BarcodeGenState extends State<BarcodeGen> {
       body: Container(
         padding: EdgeInsets.all(20),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Screenshot(
-                controller: _screenshotController,
-                child: Card(
-                  child: BarcodeWidget(
-                    barcode: Barcode.code128(),
-                    data: controller.text ?? 'Hello World',
-                    width: 200,
-                    height: 200,
-                    drawText: false,
-                  ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Screenshot(
+            controller: _screenshotController,
+            child: Card(
+              child: BarcodeWidget(
+                barcode: Barcode.code128(),
+                data: controller.text ?? 'Hello World',
+                width: 200,
+                height: 200,
+                drawText: false, 
                 ),
-              ),
-              SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(child: buildTextField(context)),
-                  const SizedBox(width: 12),
-                  ButtonTheme(
-                    child: Container(
-                      height: 60,
-                      width: 70,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.black,),
-                         child: Icon(
-                    Icons.save_alt_rounded,
-                    size: 40,
-                  ),
-                        onPressed: () => setState(() {
-                          showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          
-                          content: Text("Save Complete!!",style: TextStyle(fontSize: 30),),
-                          actions: [
-                            TextButton(
-                              child: Text("Ok!!",style: TextStyle(color:Colors.green,fontSize:20),),
-                              onPressed: () => Navigator.pop(context, 'Cancel'),
-                            ),
-                            
-                          ],
-                          elevation: 24.0,
-                        ));
-                        }),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                height: 50,
-                width: 80,
-                margin: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.green,),
-                  child: Icon(Icons.done, size: 50),
+            ),
+          ),
+            SizedBox(height: 24),
+            Row(
+                  children: [
+                    Expanded(child: buildTextField(context)),
+                    const SizedBox(width: 12),
+                    FloatingActionButton(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: Icon(Icons.done, size: 20),
+                      onPressed: () => setState(() {}),
+                    )
+                  ],
+                ),
+            FloatingActionButton(
+                  child: 
+                  Icon(Icons.save_alt_rounded,size: 30,),
                   // Text(
                   //       "Save Barcode Code",
                   //   style: TextStyle(
@@ -92,19 +63,17 @@ class _BarcodeGenState extends State<BarcodeGen> {
                   //   ),
                   // ),
                   onPressed: _takeScreenshot,
-                ),
-              )
-            ],
-          ),
+                )
+
+        ],
         ),
       ),
     );
   }
 
-  void _takeScreenshot() async {
+  void _takeScreenshot() async{
     final imageFile = await _screenshotController.capture();
-    final result = await ImageGallerySaver.saveImage(imageFile,
-        quality: 60, name: controller.text);
+    final result = await ImageGallerySaver.saveImage(imageFile, quality: 60, name: controller.text);
     print("File Saved to Gallery");
   }
 

@@ -5,6 +5,7 @@ import 'package:focused_menu/modals.dart';
 import 'package:sokoV3/model/list_item.dart';
 import 'package:sokoV3/edit_items.dart';
 import '../detail_item.dart';
+import '../Home.dart';
 
 class ListItemWidget extends StatefulWidget {
   final item;
@@ -23,7 +24,6 @@ class ListItemWidget extends StatefulWidget {
 }
 
 class _ListItemWidgetState extends State<ListItemWidget> {
-
   final dbHelper = DatabaseHelper.instance;
 
   Future<int> deleteProduct(int id) async {
@@ -31,8 +31,6 @@ class _ListItemWidgetState extends State<ListItemWidget> {
     print('Delete Product ID: $id');
     return numberOfDelete;
   }
-
-
 
   @override
   Widget build(BuildContext context) => buildItem(context);
@@ -47,9 +45,10 @@ class _ListItemWidgetState extends State<ListItemWidget> {
 
   Widget buildItem(BuildContext context) => GestureDetector(
         onTap: () {
-          print(widget.item['id']);
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DetailItem(widget.item['id'])));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailItem(widget.item['id'])));
         },
         child: Container(
           margin: EdgeInsets.all(8),
@@ -62,7 +61,8 @@ class _ListItemWidgetState extends State<ListItemWidget> {
             contentPadding: EdgeInsets.all(16),
             leading: CircleAvatar(
               radius: 32,
-              backgroundImage: NetworkImage('https://home.maefahluang.org/images/editor/apple.jpg'),
+              backgroundImage: NetworkImage(
+                  'https://home.maefahluang.org/images/editor/apple.jpg'),
             ),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,104 +105,117 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                      title: Text("เพิ่มจำนวนสินค้า"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                        Container(
-                          width: 100.0,
-                          foregroundDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: Colors.blueGrey,
-                              width: 2.0,
-                            ),
-                          ),
-                          child: Row(
+                        title: Text("เพิ่มจำนวนสินค้า"),
+                        content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: TextFormField(
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(8.0),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                  ),
-                                  controller: _controller,
-                                  keyboardType: TextInputType.numberWithOptions(
-                                    decimal: false,
-                                    signed: true,
-                                  ),
-                                  inputFormatters: <TextInputFormatter>[
-                                    WhitelistingTextInputFormatter.digitsOnly
-                                  ],
-                                ),
-                              ),
                               Container(
-                                height: 38.0,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                width: 100.0,
+                                foregroundDecoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                    color: Colors.blueGrey,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Row(
                                   children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            width: 0.5,
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextFormField(
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
                                           ),
                                         ),
-                                      ),
-                                      child: InkWell(
-                                        child: Icon(
-                                          Icons.add,
-                                          size: 18.0,
+                                        controller: _controller,
+                                        keyboardType:
+                                            TextInputType.numberWithOptions(
+                                          decimal: false,
+                                          signed: true,
                                         ),
-                                        onTap: () {
-                                          int currentValue =
-                                              int.parse(_controller.text);
-                                          setState(() {
-                                            currentValue++;
-                                            _controller.text = (currentValue)
-                                                .toString(); // incrementing value
-                                          });
-                                        },
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly
+                                        ],
                                       ),
                                     ),
-                                    InkWell(
-                                      child: Icon(
-                                        Icons.remove,
-                                        size: 18.0,
+                                    Container(
+                                      height: 38.0,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  width: 0.5,
+                                                ),
+                                              ),
+                                            ),
+                                            child: InkWell(
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 18.0,
+                                              ),
+                                              onTap: () {
+                                                int currentValue =
+                                                    int.parse(_controller.text);
+                                                setState(() {
+                                                  currentValue++;
+                                                  _controller.text = (currentValue)
+                                                      .toString(); // incrementing value
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.remove,
+                                              size: 18.0,
+                                            ),
+                                            onTap: () {
+                                              int currentValue =
+                                                  int.parse(_controller.text);
+                                              setState(() {
+                                                print("Setting state");
+                                                currentValue--;
+                                                _controller
+                                                    .text = (currentValue > 0
+                                                        ? currentValue
+                                                        : 0)
+                                                    .toString(); // decrementing value
+                                              });
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      onTap: () {
-                                        int currentValue =
-                                            int.parse(_controller.text);
-                                        setState(() {
-                                          print("Setting state");
-                                          currentValue--;
-                                          _controller.text = (currentValue > 0
-                                                  ? currentValue
-                                                  : 0)
-                                              .toString(); // decrementing value
-                                        });
-                                      },
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      actions: [
+                            ]),
+                        actions: [
                           TextButton(
-                            child: Text("Cancel",style: TextStyle(fontSize: 20, color: Colors.red),),
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(fontSize: 20, color: Colors.red),
+                            ),
                             onPressed: () => Navigator.pop(context, 'Cancel'),
                           ),
                           TextButton(
-                            child: Text("Cofirm",style: TextStyle(fontSize: 20, color: Colors.green),),
+                            child: Text(
+                              "Cofirm",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.green),
+                            ),
                             onPressed: () {},
                           ),
                         ],
@@ -211,114 +224,124 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                      title: Text("ลดจำนวนสินค้า"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                        Container(
-                          width: 100.0,
-                          foregroundDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            border: Border.all(
-                              color: Colors.blueGrey,
-                              width: 2.0,
-                            ),
-                          ),
-                          child: Row(
+                        title: Text("ลดจำนวนสินค้า"),
+                        content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: TextFormField(
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.all(8.0),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                  ),
-                                  controller: _controller,
-                                  keyboardType: TextInputType.numberWithOptions(
-                                    decimal: false,
-                                    signed: true,
-                                  ),
-                                  inputFormatters: <TextInputFormatter>[
-                                    WhitelistingTextInputFormatter.digitsOnly
-                                  ],
-                                ),
-                              ),
                               Container(
-                                height: 38.0,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                width: 100.0,
+                                foregroundDecoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                    color: Colors.blueGrey,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                child: Row(
                                   children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                            width: 0.5,
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextFormField(
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
                                           ),
                                         ),
-                                      ),
-                                      child: InkWell(
-                                        child: Icon(
-                                          Icons.add,
-                                          size: 18.0,
+                                        controller: _controller,
+                                        keyboardType:
+                                            TextInputType.numberWithOptions(
+                                          decimal: false,
+                                          signed: true,
                                         ),
-                                        onTap: () {
-                                          int currentValue =
-                                              int.parse(_controller.text);
-                                          setState(() {
-                                            currentValue++;
-                                            _controller.text = (currentValue)
-                                                .toString(); // incrementing value
-                                          });
-                                        },
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly
+                                        ],
                                       ),
                                     ),
-                                    InkWell(
-                                      child: Icon(
-                                        Icons.remove,
-                                        size: 18.0,
+                                    Container(
+                                      height: 38.0,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  width: 0.5,
+                                                ),
+                                              ),
+                                            ),
+                                            child: InkWell(
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 18.0,
+                                              ),
+                                              onTap: () {
+                                                int currentValue =
+                                                    int.parse(_controller.text);
+                                                setState(() {
+                                                  currentValue++;
+                                                  _controller.text = (currentValue)
+                                                      .toString(); // incrementing value
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.remove,
+                                              size: 18.0,
+                                            ),
+                                            onTap: () {
+                                              int currentValue =
+                                                  int.parse(_controller.text);
+                                              setState(() {
+                                                print("Setting state");
+                                                currentValue--;
+                                                _controller
+                                                    .text = (currentValue > 0
+                                                        ? currentValue
+                                                        : 0)
+                                                    .toString(); // decrementing value
+                                              });
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      onTap: () {
-                                        int currentValue =
-                                            int.parse(_controller.text);
-                                        setState(() {
-                                          print("Setting state");
-                                          currentValue--;
-                                          _controller.text = (currentValue > 0
-                                                  ? currentValue
-                                                  : 0)
-                                              .toString(); // decrementing value
-                                        });
-                                      },
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ]),
-                      actions: [
+                            ]),
+                        actions: [
                           TextButton(
-                            child: Text("Cancel",style: TextStyle(fontSize: 20, color: Colors.red),),
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(fontSize: 20, color: Colors.red),
+                            ),
                             onPressed: () => Navigator.pop(context, 'Cancel'),
                           ),
                           TextButton(
-                            child: Text("Cofirm",style: TextStyle(fontSize: 20, color: Colors.green),),
+                            child: Text(
+                              "Cofirm",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.green),
+                            ),
                             onPressed: () {},
                           ),
                         ],
                       )).then((value) => {_controller.text = '0'});
             } else if (value == 3) {
-              Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EditProductPage()));
-
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditProductPage()));
             } else if (value == 4) {
               showDialog(
                   context: context,
@@ -330,13 +353,19 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                             child: Text("ใช่! ฉันต้องการลบ"),
                             onPressed: () {
                               setState(() {
-                                deleteProduct(widget.item['id']);  
-                              });                              
-                              },
+                                deleteProduct(widget.item['id']);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
+                              });
+                            },
                           ),
                           TextButton(
-                            child: Text("Cancle",style: TextStyle(fontSize: 20, color: Colors.red),),
-                            onPressed: () {},
+                            child: Text("ยกเลิก"),
+                            onPressed: () {
+                              Navigator.pop(context, 'Cancel');
+                            },
                           ),
                         ],
                         elevation: 24.0,
@@ -367,17 +396,9 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               ),
             ),
             PopupMenuItem(
-                value: 3,
-                child: Row(
-                  children: [
-                    Icon(Icons.edit,size: 35,color: Colors.blue[300],),
-                    Container(
-                      margin: const EdgeInsets.only(left:10),
-                      child: Text("Edit Product",style: TextStyle(fontSize: 20),)),
-                  ],
-                ),
-                
-              ),
+              value: 3,
+              child: Text("แก้ไข"),
+            ),
             PopupMenuItem(
               value: 4,
               child: Row(
