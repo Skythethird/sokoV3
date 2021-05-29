@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sokoV3/add_image.dart';
 import 'database_helper.dart';
+import 'Home.dart';
 
 class AddNewProductPage extends StatefulWidget {
   @override
@@ -210,7 +211,10 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
               ElevatedButton(
                   onPressed: () {
                     insertProduct();
-                    Navigator.pop(context);
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Home()));
                   },
                   // style: ElevatedButton.styleFrom(
                   //   primary: Colors.green,

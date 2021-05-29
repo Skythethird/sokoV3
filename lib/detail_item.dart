@@ -121,7 +121,7 @@ class _DetailItemState extends State<DetailItem> {
       body: SingleChildScrollView(
         child: Center(
           child: FutureBuilder(
-            future: getProduct(widget.items['id']),
+            future: getProduct(widget.items),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) { 
                 return Column(
@@ -153,7 +153,7 @@ class _DetailItemState extends State<DetailItem> {
                 Container(
                   margin: EdgeInsets.only(top: 15),
                   child: Text(
-                    "จำนวน: $productData['amount']",
+                    "จำนวน: ${productData['amount']}",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),

@@ -23,13 +23,14 @@ class _HomeState extends State<Home> {
   List<Map<String, dynamic>> allProducts;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   List<Map<String, dynamic>> _list;
-  List<Map<String, dynamic>> _listProduct1=[];
+  final List<Map<String, dynamic>> _listProduct1=[];
 
   Future<bool> getAllProduct() async {
     allProducts = await dbHelper.queryAllRows();
-    setState(() {
-      _listProduct1 = allProducts;
-    });
+    _listProduct1.addAll(allProducts);
+    // setState(() {
+    //   _listProduct1.addAll(allProducts);
+    // });
     
     return true;
   }
@@ -53,6 +54,14 @@ class _HomeState extends State<Home> {
     setState(() {
       _value = _counter;
     });
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      
+    });
+    super.initState();
   }
 
   @override
@@ -108,10 +117,7 @@ class _HomeState extends State<Home> {
                 await Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AddNewProductPage()));
-                        setState(() {
-                          getAllProduct();
-                        });
+                        builder: (context) => AddNewProductPage())).then((_) {initState();});
               },
               child: Icon(Icons.add,size: 32,),
             ))
