@@ -72,7 +72,7 @@ class _DetailItemState extends State<DetailItem> {
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Text(
-                        "แก้ไข",
+                        "Edit Product",
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -91,7 +91,7 @@ class _DetailItemState extends State<DetailItem> {
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Text(
-                        "ลบ",
+                        "Delete",
                         style: TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.bold,
@@ -154,22 +154,25 @@ class _DetailItemState extends State<DetailItem> {
                   ),
                 ),
                 margin: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Text(
-                      "รายละเอียด ",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                child: Container(
+                  width: 400,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Detail of Product ",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.all(20),
-                        child: Text(
-                          "awfafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                          style: TextStyle(fontSize: 15),
-                        ))
-                  ],
+                      Container(
+                          margin: const EdgeInsets.all(20),
+                          child: Text(
+                            "awfafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            style: TextStyle(fontSize: 15),
+                          ))
+                    ],
+                  ),
                 ),
               ),
               Column(
@@ -180,7 +183,7 @@ class _DetailItemState extends State<DetailItem> {
                       showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                      title: Text("เพิ่มจำนวนสินค้า"),
+                      title: Text("Add number of Product"),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
