@@ -56,11 +56,12 @@ class DatabaseHelper{
     return await db.insert(table, row);
   }
 
-  Future<int> queryRowCount() async {
+  Future<Map<String, dynamic>> getProductData(int id) async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) from $table')
-    );
+
+    List<Map<String, dynamic>> myQueryList = await db.rawQuery('SELECT * FROM $table WHERE $columnID = $id');
+
+    return myQueryList[0];
   }
 
   Future<List<Map<String, dynamic>>> queryAllRows() async{
