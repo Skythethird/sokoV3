@@ -23,11 +23,14 @@ class _HomeState extends State<Home> {
   List<Map<String, dynamic>> allProducts;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   List<Map<String, dynamic>> _list;
-  final List<Map<String, dynamic>> _listProduct1=[];
+  List<Map<String, dynamic>> _listProduct1=[];
 
-  Future<bool> getProduct() async {
+  Future<bool> getAllProduct() async {
     allProducts = await dbHelper.queryAllRows();
-    _listProduct1.addAll(allProducts);
+    setState(() {
+      _listProduct1 = allProducts;
+    });
+    
     return true;
   }
 
@@ -62,7 +65,7 @@ class _HomeState extends State<Home> {
           children: [
             buildSearch(),
             FutureBuilder(
-                future: getProduct(),
+                future: getAllProduct(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return SizedBox(
@@ -74,7 +77,7 @@ class _HomeState extends State<Home> {
                               ListItemWidget(
                                 item: _listProduct1[index],
                                 animation: animation,
-                                onClicked: () {},
+                                onClicked: (){},
                               )),
                     );
                   } else {
@@ -101,11 +104,14 @@ class _HomeState extends State<Home> {
         Padding(
             padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                await Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => AddNewProductPage()));
+                        setState(() {
+                          getAllProduct();
+                        });
               },
               child: Icon(Icons.add,size: 32,),
             ))
