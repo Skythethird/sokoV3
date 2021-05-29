@@ -10,6 +10,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'filter_test.dart';
 import 'database_helper.dart';
 import 'detail_item.dart';
+import 'filter_test.dart';
 
 // import 'model/list_item.dart';
 class Home extends StatefulWidget {
@@ -59,7 +60,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     setState(() {
-      
     });
     super.initState();
   }
@@ -117,7 +117,7 @@ class _HomeState extends State<Home> {
                 await Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AddNewProductPage())).then((_) {initState();});
+                        builder: (context) => AddNewProductPage()));
               },
               child: Icon(Icons.add,size: 32,),
             ))

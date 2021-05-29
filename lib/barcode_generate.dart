@@ -51,10 +51,26 @@ class _BarcodeGenState extends State<BarcodeGen> {
                       width: 80,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
+                          primary: Colors.blue,
                         ),
-                        child: Icon(Icons.save_alt_rounded, size: 30),
-                        onPressed: _takeScreenshot,
+                        child: Icon(Icons.done, size: 30),
+                        onPressed: () => setState(() {showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                        content: Text("Barcode Genarated",style: TextStyle(fontSize: 30),),
+                        actions: [
+                          TextButton(
+                            child: Text("Accept",style: TextStyle(fontSize: 20,color: Colors.green),),
+                            onPressed: () {
+                              Navigator.pop(context, 'Cancel');
+                            },
+                          ),
+                        ],
+                        elevation: 24.0,
+                      )
+                      );
+                      }),
+                        
                       ),
                     )
                   ],
@@ -63,22 +79,43 @@ class _BarcodeGenState extends State<BarcodeGen> {
                   margin: const EdgeInsets.all(20),
                   child: SizedBox(
                     height: 50,
-                    width: 80,
+                    width: 90,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green,
                       ),
-                      child: Icon(
-                        Icons.done,
-                        size: 30,
+                      child: Text("SAVE"
+                      ,style: TextStyle(fontSize:20),
                       ),
+                      
                       // Text(
                       //       "Save Barcode Code",
                       //   style: TextStyle(
                       //     color: Colors.white
                       //   ),
                       // ),
-                      onPressed: () => setState(() {}),
+                      onPressed:(){
+                        showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                        content: Text("Svae complete!",style: TextStyle(fontSize: 30),),
+                        actions: [
+                          TextButton(
+                            child: Text("Accept",style: TextStyle(fontSize: 20,color: Colors.green),),
+                            onPressed: () { 
+                                _takeScreenshot();
+                                setState(() {
+                                  Navigator.pop(context, 'Cancel');
+                                });},
+                          ),
+                        ],
+                        elevation: 24.0,
+                      ));
+                      },
+                      
+                      
+                          
+                      
                     ),
                   ),
                 )
