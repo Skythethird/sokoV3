@@ -47,7 +47,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
 
   Widget buildItem(BuildContext context) => GestureDetector(
         onTap: () {
-          print('yay');
+          print(widget.item['id']);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => DetailItem(widget.item['id'])));
         },

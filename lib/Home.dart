@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   List<Map<String, dynamic>> _list;
   List<Map<String, dynamic>> _listProduct1=[];
 
-  Future<bool> getProduct() async {
+  Future<bool> getAllProduct() async {
     allProducts = await dbHelper.queryAllRows();
     setState(() {
       _listProduct1 = allProducts;
@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
           children: [
             buildSearch(),
             FutureBuilder(
-                future: getProduct(),
+                future: getAllProduct(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return SizedBox(
@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
                     MaterialPageRoute(
                         builder: (context) => AddNewProductPage()));
                         setState(() {
-                          getProduct();
+                          getAllProduct();
                         });
               },
               child: Icon(Icons.add,size: 32,),
