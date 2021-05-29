@@ -49,7 +49,7 @@ class _DetailItemState extends State<DetailItem> {
               print(value);
               if (value == 1) {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProductPage()));
+                    MaterialPageRoute(builder: (context) => EditProductPage(widget.items)));
               } else if (value == 2) {
                 showDialog(
                     context: context,

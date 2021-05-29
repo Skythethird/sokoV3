@@ -295,10 +295,10 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                         ],
                       )).then((value) => {_controller.text = '0'});
             } else if (value == 3) {
-              Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EditProductPage()));
+              // Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => EditProductPage()));
 
             } else if (value == 4) {
               showDialog(
