@@ -48,7 +48,7 @@ class _EditProductPage extends State<EditProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Product'),
+        title: Text('Edit Product'),
         backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
       ),
       backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
