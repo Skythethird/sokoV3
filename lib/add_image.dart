@@ -9,25 +9,23 @@ class Pic extends StatefulWidget {
 
 class _PicState extends State<Pic> {
   File _image;
+  final picker = ImagePicker();
 
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
+    PickedFile image = await picker.getImage(
         source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = File(image.path);
     });
-    // final appDir = await syspaths.getApplicationDocumentsDirectory();    
-    // final fileName = path.basename(image.path);    
-    // final savedImage = await image.copy('${appDir.path}/$fileName');
   }
 
   _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
+    PickedFile image = await picker.getImage(
         source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = File(image.path);
     });
     
   }

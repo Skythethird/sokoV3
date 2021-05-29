@@ -35,8 +35,8 @@ dependencies:
   pattern_formatter: ^2.0.0
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
-  flutter_barcode_scanner: ^1.0.2
-  image_picker: ^0.6.7+14
+  flutter_barcode_scanner: ^2.0.0
+  image_picker: ^0.7.5+3
   focused_menu: ^1.0.2
   barcode_widget: ^2.0.1
   barcode_image: ^2.0.0
@@ -44,6 +44,9 @@ dependencies:
   shared_preferences: ^2.0.6
   screenshot: ^0.3.0
   share: ^2.0.4
+  firebase_core: ^1.2.0
+  cloud_firestore:
+  image_gallery_saver: '^1.6.9'
 
 flutter_icons:
   android: true
@@ -71,6 +74,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - landing.jpg
+    - backgroundImage.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -83,10 +87,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Quicksand-Bold
+      fonts:
+        - asset: fonts/Quicksand-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
