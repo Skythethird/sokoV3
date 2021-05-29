@@ -25,7 +25,14 @@ class _EditProductPage extends State<EditProductPage> {
   Map<String, dynamic> productData;
 
   Future<Map<String, dynamic>> getProduct(int id) async {
-    return productData = await dbHelper.getProductData(id);
+    productData = await dbHelper.getProductData(id);
+    _nameProduct = productData['productname'];
+    _detail = productData['detail'];
+    _amount = productData['amount'];
+    _retailPrice = productData['retail'];
+    _wholesalePrice = productData['wholesale'];
+    _category = productData['category'];
+    return productData;
   }
 
   void updateProduct() async {
@@ -44,12 +51,7 @@ class _EditProductPage extends State<EditProductPage> {
   @override
   void initState() {
     setState(() {
-              _nameProduct = productData['productname'];
-              _detail = productData['detail'];
-              _amount = productData['amount'];
-              _retailPrice = productData['retail'];
-              _wholesalePrice = productData['wholesale'];
-              _category = productData['category'];
+              
             });
     super.initState();
   }
@@ -80,6 +82,7 @@ class _EditProductPage extends State<EditProductPage> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: new TextFormField(
+                            initialValue: _nameProduct,
                             decoration: const InputDecoration(
                               labelText: 'Name of product',
                               border: OutlineInputBorder(),
@@ -88,9 +91,7 @@ class _EditProductPage extends State<EditProductPage> {
                             onChanged: (text) {
                               var val = text;
                               if (val != null) {
-                                setState(() {
-                                  _nameProduct = val;
-                                });
+                                _nameProduct = val;
                               } 
                             },
                           ),
@@ -103,6 +104,7 @@ class _EditProductPage extends State<EditProductPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: new TextFormField(
+                                    initialValue: _amount.toString(),
                                     decoration: const InputDecoration(
                                       labelText: 'Number of product',
                                       border: OutlineInputBorder(),
@@ -111,9 +113,7 @@ class _EditProductPage extends State<EditProductPage> {
                                     onChanged: (text) {
                                       var val = int.tryParse(text);
                                       if (val != null) {
-                                        setState(() {
-                                          _amount = val;
-                                        });
+                                        _amount = val;
                                       }
                                     },
                                   ),
@@ -134,9 +134,7 @@ class _EditProductPage extends State<EditProductPage> {
                                     style: const TextStyle(
                                         color: Colors.deepPurple),
                                     onChanged: (String newValue) {
-                                      setState(() {
-                                        _category = newValue;
-                                      });
+                                      _category = newValue;
                                     },
                                     items: <String>['Product', 'Box']
                                         .map<DropdownMenuItem<String>>(
@@ -160,6 +158,7 @@ class _EditProductPage extends State<EditProductPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: new TextFormField(
+                                    initialValue: _retailPrice.toString(),
                                     decoration: const InputDecoration(
                                       labelText: 'Retail Price(Baht)',
                                       border: OutlineInputBorder(),
@@ -168,9 +167,7 @@ class _EditProductPage extends State<EditProductPage> {
                                     onChanged: (text) {
                                       var val = double.tryParse(text);
                                       if (val != null) {
-                                        setState(() {
-                                          _retailPrice = val;
-                                        });
+                                        _retailPrice = val;
                                       }
                                     },
                                     inputFormatters: [
@@ -183,6 +180,7 @@ class _EditProductPage extends State<EditProductPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: new TextFormField(
+                                    initialValue: _wholesalePrice.toString(),
                                     decoration: const InputDecoration(
                                       labelText: 'Wholesale Price(Baht)',
                                       border: OutlineInputBorder(),
@@ -191,9 +189,7 @@ class _EditProductPage extends State<EditProductPage> {
                                     onChanged: (text) {
                                       var val = double.tryParse(text);
                                       if (val != null) {
-                                        setState(() {
-                                          _wholesalePrice = val;
-                                        });
+                                        _wholesalePrice = val;
                                       }
                                     },
                                     inputFormatters: [
@@ -208,6 +204,7 @@ class _EditProductPage extends State<EditProductPage> {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: new TextFormField(
+                            initialValue: _detail,
                             decoration: const InputDecoration(
                               labelText: 'Detail',
                               border: OutlineInputBorder(),
@@ -217,9 +214,7 @@ class _EditProductPage extends State<EditProductPage> {
                             onChanged: (text) {
                               var val = text;
                               if (val != null) {
-                                setState(() {
-                                  _detail = val;
-                                });
+                                _detail = val;
                               }
                             },
                           ),
@@ -227,6 +222,9 @@ class _EditProductPage extends State<EditProductPage> {
                         ElevatedButton(
                             onPressed: () {
                               updateProduct();
+                              setState(() {
+                                
+                              });
                             },
                             // style: ElevatedButton.styleFrom(
                             //   primary: Colors.green,
@@ -251,16 +249,4 @@ class _EditProductPage extends State<EditProductPage> {
       ),
     );
   }
-
-//   void _validateInputs() {
-//     if (_formKey.currentState.validate()) {
-// //    If all data are correct then save data to out variables
-//       _formKey.currentState.save();
-//     } else {
-// //    If all data are not valid then start auto validation.
-//       setState(() {
-//         _autoValidate = true;
-//       });
-//     }
-//   }
 }
