@@ -16,8 +16,8 @@ class _EditProductPage extends State<EditProductPage> {
   String _nameProduct;
   String _detail;
   int _amount;
-  double _retailPrice;
-  double _wholesalePrice;
+  int _retailPrice;
+  int _wholesalePrice;
   String _category;
 
   final dbHelper = DatabaseHelper.instance;
@@ -165,7 +165,7 @@ class _EditProductPage extends State<EditProductPage> {
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (text) {
-                                      var val = double.tryParse(text);
+                                      var val = int.tryParse(text);
                                       if (val != null) {
                                         _retailPrice = val;
                                       }
@@ -187,7 +187,7 @@ class _EditProductPage extends State<EditProductPage> {
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (text) {
-                                      var val = double.tryParse(text);
+                                      var val = int.tryParse(text);
                                       if (val != null) {
                                         _wholesalePrice = val;
                                       }

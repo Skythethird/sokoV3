@@ -22,6 +22,7 @@ class FilterLocalListPageState extends State<FilterLocalListPage> {
 
     items = listItems;
   }
+  
 
   @override
   Widget build(BuildContext context) => Scaffold(
