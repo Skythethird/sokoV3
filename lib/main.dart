@@ -77,6 +77,7 @@ final Future _initFuture = Init.initialize();
 void main() {
   // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MaterialApp(
+    theme:ThemeData(fontFamily: 'Quicksand-Bold') ,
       home: FutureBuilder(
         future: _initFuture,
         builder: (context, snapshot){

@@ -74,9 +74,10 @@ class _ListItemWidgetState extends State<ListItemWidget> {
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Colors.blue,
+            color: Color(0xfffBFB58C),
           ),
           child: ListTile(
+            
             contentPadding: EdgeInsets.all(16),
             leading: CircleAvatar(
               radius: 32,
@@ -84,13 +85,14 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                   'https://home.maefahluang.org/images/editor/apple.jpg'),
             ),
             title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.item['productname'],
+                  "Name: "+ widget.item['productname'],
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
                 Text(
-                  widget.item['amount'].toString(),
+                  "Amount: " + widget.item['amount'].toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
               ],
@@ -114,7 +116,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
         width: 40,
         height: 40,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(64), color: Colors.black),
+            borderRadius: BorderRadius.circular(64), color: Color(0xfff3C3843)),
         child: PopupMenuButton<int>(
           child: Icon(Icons.more_vert, color: Colors.white),
           onSelected: (int value) {
@@ -123,7 +125,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text("เพิ่มจำนวนสินค้า"),
+                        title: Text("Increase"),
                         content: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -245,7 +247,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text("ลดจำนวนสินค้า"),
+                        title: Text("Decrease"),
                         content: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -370,11 +372,11 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text("ลบสินค้า"),
-                        content: Text("ต้องการลบสินค้านี้หรือไม่ ?"),
+                        title: Text("Delete Product?",style: TextStyle(fontSize: 30),),
+                        content: Text("Want to delete?",style: TextStyle(fontSize: 20),),
                         actions: [
                           TextButton(
-                            child: Text("ใช่! ฉันต้องการลบ"),
+                            child: Text("Yes!",style: TextStyle(fontSize: 20,color: Colors.green)),
                             onPressed: () {
                               setState(() {
                                 deleteProduct(widget.item['id']);
@@ -386,7 +388,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                             },
                           ),
                           TextButton(
-                            child: Text("ยกเลิก"),
+                            child: Text("No",style: TextStyle(fontSize: 20,color: Colors.red),),
                             onPressed: () {
                               Navigator.pop(context, 'Cancel');
                             },
@@ -399,19 +401,47 @@ class _ListItemWidgetState extends State<ListItemWidget> {
           itemBuilder: (context) => [
             PopupMenuItem(
               value: 1,
-              child: Text("เพิ่มจำนวนสินค้า"),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_circle_up,size: 35,color: Colors.green[300],),
+                  Container(
+                    margin: const EdgeInsets.only(left:10),
+                    child: Text("Increase",style: TextStyle(fontSize: 20),)),
+                ],
+              ),
             ),
             PopupMenuItem(
               value: 2,
-              child: Text("ลดจำนวนสินค้า"),
+              child: Row(
+                children: [
+                  Icon(Icons.arrow_circle_down,size: 35,color: Colors.red[300],),
+                  Container(
+                    margin: const EdgeInsets.only(left:10),
+                    child: Text("Reduce",style: TextStyle(fontSize: 20),)),
+                ],
+              ),
             ),
             PopupMenuItem(
               value: 3,
-              child: Text("แก้ไข"),
+                child: Row(
+                  children: [
+                    Icon(Icons.edit,size: 35,color: Colors.blue[300],),
+                    Container(
+                      margin: const EdgeInsets.only(left:10),
+                      child: Text("Edit",style: TextStyle(fontSize: 20),)),
+                  ],
+                ),
             ),
             PopupMenuItem(
               value: 4,
-              child: Text("ลบ"),
+              child: Row(
+                children: [
+                  Icon(Icons.delete,size: 35,color: Colors.red,),
+                  Container(
+                    margin: const EdgeInsets.only(left:10),
+                    child: Text("Delete",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 20),)),
+                ],
+              ),
             ),
           ],
         ),

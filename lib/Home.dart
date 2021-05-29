@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return SizedBox(
-                      height: 400,
+                      height: 660,
                       child: AnimatedList(
                           key: _listKey,
                           initialItemCount: _listProduct1.length,
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
 
   Widget getAppBar() {
     return AppBar(
-      title: Text('List product'),
+      title: Text('List Product'),
       actions: [
         Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -185,7 +185,7 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   new ListTile(
                       leading: new Icon(Icons.qr_code_scanner),
-                      title: new Text('Scaner'),
+                      title: new Text('Scanner'),
                       onTap: () {
                         _barcode();
                         Navigator.of(context).pop();

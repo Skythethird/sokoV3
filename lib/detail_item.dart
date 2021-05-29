@@ -136,7 +136,7 @@ class _DetailItemState extends State<DetailItem> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
-                        "https://f.btwcdn.com/store-34660/product/39ebc6bf-499c-33dd-e649-5b8feb151781.jpg",
+                        'https://home.maefahluang.org/images/editor/apple.jpg',
                         height: 200,
                         width: 200,
                       ),
@@ -153,12 +153,12 @@ class _DetailItemState extends State<DetailItem> {
                 Container(
                   margin: EdgeInsets.only(top: 15),
                   child: Text(
-                    "จำนวน: ${productData['amount']}",
+                    "Amount: ${productData['amount']}",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Container(
-                  // padding: const EdgeInsets.all(50),
+                  width: 300,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border(
@@ -172,7 +172,7 @@ class _DetailItemState extends State<DetailItem> {
                   child: Column(
                     children: [
                       Text(
-                        "รายละเอียด ",
+                        "Product Detail ",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -195,7 +195,7 @@ class _DetailItemState extends State<DetailItem> {
                         showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                        title: Text("เพิ่มจำนวนสินค้า"),
+                        title: Text("Increase"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -299,7 +299,7 @@ class _DetailItemState extends State<DetailItem> {
                         )).then((value) => {_controller.text = '0'});
                       },
                       child: Container(
-                          width: 200,
+                          width: 150,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.green,
@@ -318,8 +318,8 @@ class _DetailItemState extends State<DetailItem> {
                                     Container(
                                         margin: const EdgeInsets.all(8),
                                         child: Text(
-                                          "เพิ่มจำนวนสินค้า",
-                                          style: TextStyle(fontSize: 15),
+                                          "Increase",
+                                          style: TextStyle(fontSize: 15,color: Colors.white),
                                         )),
                                   ],
                                 )),
@@ -332,7 +332,7 @@ class _DetailItemState extends State<DetailItem> {
                         showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                        title: Text("ลดจำนวนสินค้า"),
+                        title: Text("Decrease"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -436,7 +436,7 @@ class _DetailItemState extends State<DetailItem> {
                         )).then((value) => {_controller.text = '0'});
                       },
                       child: Container(
-                          width: 200,
+                          width: 150,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.red,
@@ -455,7 +455,7 @@ class _DetailItemState extends State<DetailItem> {
                                       Container(
                                         margin: const EdgeInsets.all(8),
                                         child: Text(
-                                          "ลดจำนวนสินค้า",
+                                          "Decrease",
                                           style: TextStyle(fontSize: 15),
                                         ),
                                       ),
