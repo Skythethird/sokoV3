@@ -46,6 +46,7 @@ dependencies:
   share: ^2.0.4
   firebase_core: ^1.2.0
   cloud_firestore:
+  image_gallery_saver: '^1.6.9'
 
 flutter_icons:
   android: true
@@ -73,6 +74,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - landing.jpg
+    - backgroundImage.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -85,10 +87,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Quicksand-Bold
+      fonts:
+        - asset: fonts/Quicksand-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

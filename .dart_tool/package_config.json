@@ -194,6 +194,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "image_gallery_saver",
+      "rootUri": "file:///Users/skythethird/desktop/src/flutter/.pub-cache/hosted/pub.dartlang.org/image_gallery_saver-1.6.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "image_picker",
       "rootUri": "file:///Users/skythethird/desktop/src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.7.5+3",
       "packageUri": "lib/",
@@ -470,7 +476,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-05-28T20:52:52.155343Z",
+  "generated": "2021-05-29T02:27:20.519354Z",
   "generator": "pub",
   "generatorVersion": "2.13.0"
 }

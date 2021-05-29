@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sokoV3/add_image.dart';
 import 'database_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Home.dart';
 
 class AddNewProductPage extends StatefulWidget {
   @override
@@ -46,45 +46,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
     print('Insert Produc ID: $id $row');
   }
 
-  final firestore = FirebaseFirestore.instance;
-  void _create() async{
-     try {
-      await firestore.collection('users').add({
-        'Name':  _nameProduct,
-        'Detail':  _detail,
-      });
-    } catch (e) {
-      print(e);
-    }
 
-  }
-  void _read() async {
-    Object documentSnapshot;
-    try {
-      documentSnapshot = await firestore.collection('users').get();
-      print(documentSnapshot);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void _update() async {
-    try {
-      firestore.collection('users').doc('testUser').update({
-        'firstName': 'testUpdated',
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void _delete() async {
-    try {
-      firestore.collection('users').doc('testUser').delete();
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -248,12 +210,27 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   },
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                   insertProduct();
-                  },
-
-                  child: Text("Add")),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: SizedBox(
+                  height: 40,
+                  width: 80,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ), // background
+                      onPressed: () {
+                        insertProduct();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
+                      },
+                      // style: ElevatedButton.styleFrom(
+                      //   primary: Colors.green,
+                      //   onPrimary: Colors.white,
+                      // ),
+                      child: Text("Add",style: TextStyle(fontSize: 20),)),
+                ),
+              ),
               new SizedBox(
                 height: 10.0,
               ),
@@ -263,10 +240,11 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       ),
     );
   }
-void Saveimage(path) async{
-   SharedPreferences saveimage = await SharedPreferences.getInstance();
-   saveimage.setString("imagepath", path);
-}
+
+  void Saveimage(path) async {
+    SharedPreferences saveimage = await SharedPreferences.getInstance();
+    saveimage.setString("imagepath", path);
+  }
 //   void _validateInputs() {
 //     if (_formKey.currentState.validate()) {
 // //    If all data are correct then save data to out variables
