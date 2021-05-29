@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return SizedBox(
-                      height: 400,
+                      height: 660,
                       child: AnimatedList(
                           key: _listKey,
                           initialItemCount: _listProduct1.length,

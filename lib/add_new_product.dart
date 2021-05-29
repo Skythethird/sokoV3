@@ -208,19 +208,27 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
                   },
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    insertProduct();
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Home()));
-                  },
-                  // style: ElevatedButton.styleFrom(
-                  //   primary: Colors.green,
-                  //   onPrimary: Colors.white,
-                  // ),
-                  child: Text("Add")),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: SizedBox(
+                  height: 40,
+                  width: 80,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ), // background
+                      onPressed: () {
+                        insertProduct();
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
+                      },
+                      // style: ElevatedButton.styleFrom(
+                      //   primary: Colors.green,
+                      //   onPrimary: Colors.white,
+                      // ),
+                      child: Text("Add",style: TextStyle(fontSize: 20),)),
+                ),
+              ),
               new SizedBox(
                 height: 10.0,
               ),
@@ -230,10 +238,11 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
       ),
     );
   }
-void Saveimage(path) async{
-   SharedPreferences saveimage = await SharedPreferences.getInstance();
-   saveimage.setString("imagepath", path);
-}
+
+  void Saveimage(path) async {
+    SharedPreferences saveimage = await SharedPreferences.getInstance();
+    saveimage.setString("imagepath", path);
+  }
 //   void _validateInputs() {
 //     if (_formKey.currentState.validate()) {
 // //    If all data are correct then save data to out variables

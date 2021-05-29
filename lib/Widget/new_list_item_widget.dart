@@ -105,7 +105,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text("เพิ่มจำนวนสินค้า"),
+                        title: Text("Increase"),
                         content: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -224,7 +224,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text("ลดจำนวนสินค้า"),
+                        title: Text("Decrease"),
                         content: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -346,11 +346,11 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text("Delete Product"),
-                        content: Text("Want to delete?"),
+                        title: Text("Delete Product?",style: TextStyle(fontSize: 30),),
+                        content: Text("Want to delete?",style: TextStyle(fontSize: 20),),
                         actions: [
                           TextButton(
-                            child: Text("ใช่! ฉันต้องการลบ"),
+                            child: Text("Yes!",style: TextStyle(fontSize: 20,color: Colors.green)),
                             onPressed: () {
                               setState(() {
                                 deleteProduct(widget.item['id']);
@@ -362,7 +362,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                             },
                           ),
                           TextButton(
-                            child: Text("ยกเลิก"),
+                            child: Text("No",style: TextStyle(fontSize: 20,color: Colors.red),),
                             onPressed: () {
                               Navigator.pop(context, 'Cancel');
                             },
@@ -397,7 +397,14 @@ class _ListItemWidgetState extends State<ListItemWidget> {
             ),
             PopupMenuItem(
               value: 3,
-              child: Text("แก้ไข"),
+                child: Row(
+                  children: [
+                    Icon(Icons.edit,size: 35,color: Colors.blue[300],),
+                    Container(
+                      margin: const EdgeInsets.only(left:10),
+                      child: Text("Edit",style: TextStyle(fontSize: 20),)),
+                  ],
+                ),
             ),
             PopupMenuItem(
               value: 4,
