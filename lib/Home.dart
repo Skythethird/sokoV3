@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
 
   Widget getAppBar() {
     return AppBar(
-      title: Text('List Product'),
+      title: Text('Somchai Soko!'),
       actions: [
         Padding(
             padding: const EdgeInsets.only(right: 20),
