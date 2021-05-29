@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.6
   screenshot: ^0.3.0
   share: ^2.0.4
+  image_gallery_saver: '^1.6.9'
 
 flutter_icons:
   android: true
@@ -71,6 +72,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - landing.jpg
+    - backgroundImage.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

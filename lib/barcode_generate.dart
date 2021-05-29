@@ -1,9 +1,10 @@
 import 'dart:ffi';
 import 'dart:io';
-
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:barcode_image/barcode_image.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 
 class BarcodeGen extends StatefulWidget {
@@ -13,12 +14,13 @@ class BarcodeGen extends StatefulWidget {
 
 class _BarcodeGenState extends State<BarcodeGen> {
   final controller = TextEditingController();
+  final _screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Product'),
+        title: Text('Barcode Generate'),
         backgroundColor: Color.fromRGBO(60, 56, 67, 1.0),
       ),
       backgroundColor: Color.fromRGBO(255, 252, 231, 1.0),
@@ -28,13 +30,18 @@ class _BarcodeGenState extends State<BarcodeGen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BarcodeWidget(
-            barcode: Barcode.code128(),
-            data: controller.text ?? 'Hello World',
-            width: 200,
-            height: 200,
-            drawText: false, 
+          Screenshot(
+            controller: _screenshotController,
+            child: Card(
+              child: BarcodeWidget(
+                barcode: Barcode.code128(),
+                data: controller.text ?? 'Hello World',
+                width: 200,
+                height: 200,
+                drawText: false, 
+                ),
             ),
+          ),
             SizedBox(height: 24),
             Row(
                   children: [
@@ -42,22 +49,21 @@ class _BarcodeGenState extends State<BarcodeGen> {
                     const SizedBox(width: 12),
                     FloatingActionButton(
                       backgroundColor: Theme.of(context).primaryColor,
-                      child: Icon(Icons.done, size: 30),
+                      child: Icon(Icons.done, size: 20),
                       onPressed: () => setState(() {}),
                     )
                   ],
                 ),
             FloatingActionButton(
-                  child: Text(
-                        "Save QR Code",
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
-                  ),
-                  onPressed: (){
-                        //How to save screenshots
-                    // _widgetShot();
-                  },
+                  child: 
+                  Icon(Icons.save_alt_rounded,size: 30,),
+                  // Text(
+                  //       "Save Barcode Code",
+                  //   style: TextStyle(
+                  //     color: Colors.white
+                  //   ),
+                  // ),
+                  onPressed: _takeScreenshot,
                 )
 
         ],
@@ -65,8 +71,14 @@ class _BarcodeGenState extends State<BarcodeGen> {
     ),
       ),
     );
-
   }
+
+  void _takeScreenshot() async{
+    final imageFile = await _screenshotController.capture();
+    final result = await ImageGallerySaver.saveImage(imageFile, quality: 60, name: controller.text);
+    print("File Saved to Gallery");
+  }
+
   Widget buildTextField(BuildContext context) => TextField(
          controller: controller,
         style: TextStyle(

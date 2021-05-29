@@ -173,14 +173,14 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   new ListTile(
                       leading: new Icon(Icons.qr_code_scanner),
-                      title: new Text('Photo Library'),
+                      title: new Text('Scaner'),
                       onTap: () {
                         _barcode();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.qr_code_sharp),
-                    title: new Text('Camera'),
+                    title: new Text('Save Barcode'),
                     onTap: () {
                       Navigator.push(
                           context,
