@@ -60,7 +60,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     setState(() {
-      
     });
     super.initState();
   }
@@ -118,7 +117,7 @@ class _HomeState extends State<Home> {
                 await Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AddNewProductPage())).then((_) {initState();});
+                        builder: (context) => AddNewProductPage()));
               },
               child: Icon(Icons.add,size: 32,),
             ))
